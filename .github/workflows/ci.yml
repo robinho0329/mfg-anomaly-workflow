@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # TensorFlow는 설치하지 않는다(무겁다). 모델 테스트는 @skipif로 자동 스킵되고,
+      # 시뮬레이터·TEP 어댑터·스코어링·마할라노비스 등 순수 함수 테스트는 그대로 검증된다.
+      - name: Install deps (TF 제외)
+        run: pip install pandas numpy pyarrow scipy scikit-learn pytest
+
+      - name: Run tests
+        env:
+          PYTHONHASHSEED: "42"
+        run: pytest tests/ -q
