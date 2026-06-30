@@ -1,0 +1,26 @@
+# 가상환경
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# 데이터(용량/재현성) — raw 스냅샷·DB·모델 산출은 커밋 제외
+data/raw/
+data/processed/
+data/eda/
+data/models/
+data/db/
+*.parquet
+*.db
+*.h5
+*.joblib
+
+# 리포트 산출물
+reports/*.pptx
+
+# 환경/비밀
+.env
+
+# OS/에디터
+.DS_Store
+.ipynb_checkpoints/
