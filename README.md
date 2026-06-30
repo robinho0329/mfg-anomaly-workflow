@@ -26,10 +26,11 @@ SQLite 적재        clean.parquet            scores.parquet           portfolio
 ## 빠른 시작
 
 ```bash
-pip install -r requirements.txt
+# 로컬 전체 워크플로우(딥러닝 학습 포함) — TensorFlow 등 전체 의존성
+pip install -r requirements-train.txt
 
 # 전체 워크플로우 실행
-python run_workflow.py --collect-batches 10 --ppt
+python run_workflow.py --collect-batches 12 --ppt
 
 # 대시보드
 streamlit run src/report/dashboard/app.py
@@ -37,6 +38,20 @@ streamlit run src/report/dashboard/app.py
 # 테스트
 pytest tests/
 ```
+
+> `requirements.txt` 는 **Streamlit Cloud 배포용 경량 의존성**(TF 미포함),
+> `requirements-train.txt` 는 **로컬 학습용 전체 의존성**이다.
+
+## Streamlit Cloud 배포
+
+대시보드는 사전계산 산출물(`data/models/scores.parquet` 등)만 읽으므로 **TensorFlow 없이 경량 배포**된다.
+
+1. share.streamlit.io 접속 → GitHub repo 선택
+2. **Main file path**: `src/report/dashboard/app.py`
+3. Deploy (루트 `requirements.txt` 가 자동 적용 — 경량)
+
+산출물 갱신 시: 로컬에서 워크플로우를 재실행한 뒤
+`git add -f data/models/scores.parquet` 로 다시 커밋한다(데이터는 기본 .gitignore 대상).
 
 ## 데이터
 

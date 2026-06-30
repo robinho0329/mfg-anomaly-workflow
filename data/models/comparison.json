@@ -1,0 +1,141 @@
+{
+  "overall": [
+    {
+      "model": "lstm_ae",
+      "precision": 1.0,
+      "recall": 0.8666666666666667,
+      "f1": 0.9285714285714286,
+      "tp": 65,
+      "fp": 0,
+      "fn": 10,
+      "tn": 191
+    },
+    {
+      "model": "vae",
+      "precision": 1.0,
+      "recall": 0.8533333333333334,
+      "f1": 0.920863309352518,
+      "tp": 64,
+      "fp": 0,
+      "fn": 11,
+      "tn": 191
+    },
+    {
+      "model": "transformer_ae",
+      "precision": 0.935064935064935,
+      "recall": 0.96,
+      "f1": 0.9473684210526315,
+      "tp": 72,
+      "fp": 5,
+      "fn": 3,
+      "tn": 186
+    }
+  ],
+  "per_fault": [
+    {
+      "model": "lstm_ae",
+      "fault_id": 1,
+      "n_rows": 15,
+      "detected": 10,
+      "recall": 0.6666666666666666
+    },
+    {
+      "model": "lstm_ae",
+      "fault_id": 4,
+      "n_rows": 20,
+      "detected": 15,
+      "recall": 0.75
+    },
+    {
+      "model": "lstm_ae",
+      "fault_id": 8,
+      "n_rows": 20,
+      "detected": 20,
+      "recall": 1.0
+    },
+    {
+      "model": "lstm_ae",
+      "fault_id": 12,
+      "n_rows": 20,
+      "detected": 20,
+      "recall": 1.0
+    },
+    {
+      "model": "lstm_ae",
+      "fault_id": 0,
+      "n_rows": 191,
+      "detected": 0,
+      "recall": 0.0
+    },
+    {
+      "model": "vae",
+      "fault_id": 1,
+      "n_rows": 15,
+      "detected": 10,
+      "recall": 0.6666666666666666
+    },
+    {
+      "model": "vae",
+      "fault_id": 4,
+      "n_rows": 20,
+      "detected": 15,
+      "recall": 0.75
+    },
+    {
+      "model": "vae",
+      "fault_id": 8,
+      "n_rows": 20,
+      "detected": 19,
+      "recall": 0.95
+    },
+    {
+      "model": "vae",
+      "fault_id": 12,
+      "n_rows": 20,
+      "detected": 20,
+      "recall": 1.0
+    },
+    {
+      "model": "vae",
+      "fault_id": 0,
+      "n_rows": 191,
+      "detected": 0,
+      "recall": 0.0
+    },
+    {
+      "model": "transformer_ae",
+      "fault_id": 1,
+      "n_rows": 15,
+      "detected": 15,
+      "recall": 1.0
+    },
+    {
+      "model": "transformer_ae",
+      "fault_id": 4,
+      "n_rows": 20,
+      "detected": 17,
+      "recall": 0.85
+    },
+    {
+      "model": "transformer_ae",
+      "fault_id": 8,
+      "n_rows": 20,
+      "detected": 20,
+      "recall": 1.0
+    },
+    {
+      "model": "transformer_ae",
+      "fault_id": 12,
+      "n_rows": 20,
+      "detected": 20,
+      "recall": 1.0
+    },
+    {
+      "model": "transformer_ae",
+      "fault_id": 0,
+      "n_rows": 191,
+      "detected": 5,
+      "recall": 0.02617801047120419
+    }
+  ]
+}

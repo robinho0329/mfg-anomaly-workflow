@@ -41,6 +41,18 @@ COLLECT_TABLE = "tep_stream"  # SQLite 적재 테이블명
 # ── 모델(models) 설정 ─────────────────────────────────────
 SEQ_LEN = 20                 # 시계열 윈도우 길이(스텝)
 AE_LATENT_DIM = 16           # 오토인코더 잠재 차원
-AE_EPOCHS = 30
+AE_EPOCHS = 80               # 최대 epoch (조기종료로 자동 단축)
 AE_BATCH = 64
-ANOMALY_QUANTILE = 0.99      # 정상 재구성오차 분위수 → 임계값
+AE_VAL_SPLIT = 0.15          # 학습 중 검증 분할 비율(조기종료 기준)
+AE_PATIENCE = 8              # EarlyStopping 인내(epoch)
+AE_DROPOUT = 0.1             # 과적합 억제용 드롭아웃
+
+# 임계값/점수 산정 ─ 과탐 억제 핵심 영역
+ANOMALY_QUANTILE = 0.995     # 순수 정상 재구성오차 분위수 → 임계값
+THRESHOLD_MARGIN = 1.15      # 분위 임계값에 곱하는 안전 여유 배수(노이즈 마진)
+SCORE_SMOOTH_WINDOW = 5      # 행 점수 평활(rolling median) 윈도우(과탐 억제)
+
+# 신규 모델 하이퍼파라미터
+VAE_BETA = 0.5               # VAE KL 가중치(β-VAE)
+TRANSFORMER_HEADS = 4        # Transformer-AE 멀티헤드 어텐션 헤드 수
+TRANSFORMER_FF_DIM = 64      # Transformer-AE 피드포워드 차원

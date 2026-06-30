@@ -37,8 +37,12 @@ ML 모델링이 핵심이되 **수집 → 전처리/EDA/통계 → 딥러닝 이
 ## 실행
 
 ```bash
-# 전체 워크플로우(수집 10배치 → 전처리/EDA → 탐지 → PPT)
-python run_workflow.py --collect-batches 10 --ppt
+# 의존성: 로컬 학습은 전체, 배포(대시보드)는 경량
+pip install -r requirements-train.txt   # 로컬 전체(TF 포함)
+# pip install -r requirements.txt       # Streamlit Cloud 배포용 경량(TF 미포함)
+
+# 전체 워크플로우(수집 12배치 → 전처리/EDA → 탐지 → PPT)
+python run_workflow.py --collect-batches 12 --ppt
 
 # 단계별
 python -m src.collect.scheduler --rows 20 --fault 0

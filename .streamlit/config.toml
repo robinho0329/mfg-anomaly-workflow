@@ -1,0 +1,7 @@
+# Streamlit 대시보드 설정 (로컬·클라우드 공통)
+[theme]
+base = "light"
+primaryColor = "#2563eb"
+
+[server]
+headless = true

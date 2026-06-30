@@ -1,0 +1,12 @@
+# 로컬 전체 워크플로우(수집·전처리·EDA·딥러닝 학습·리포트)용 의존성.
+# 설치: pip install -r requirements-train.txt
+-r requirements.txt
+
+scipy
+scikit-learn
+tensorflow>=2.12   # LSTM-AE / VAE / Transformer-AE (CPU 가능, 배포에는 미포함)
+joblib
+matplotlib
+seaborn
+python-pptx
+pytest

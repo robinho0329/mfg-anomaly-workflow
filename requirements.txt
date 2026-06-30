@@ -1,22 +1,8 @@
-# 핵심 데이터 처리
+# Streamlit Cloud 배포용 경량 의존성.
+# 대시보드는 사전계산 산출물(scores.parquet 등)만 읽으므로 TensorFlow가 필요 없다.
+# 로컬에서 딥러닝 학습까지 하려면 requirements-train.txt 를 설치한다.
+streamlit
 pandas>=2.0
 numpy
 pyarrow
-scipy
-
-# ML / 딥러닝
-scikit-learn
-tensorflow>=2.12   # LSTM-AE (CPU 가능)
-joblib
-
-# 시각화 / 대시보드
-matplotlib
-seaborn
 plotly
-streamlit
-
-# 리포트
-python-pptx
-
-# 테스트
-pytest
