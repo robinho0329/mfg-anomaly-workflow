@@ -94,3 +94,14 @@ class LSTMAutoencoder:
             return np.empty(0)
         pred = self.model.predict(seqs, verbose=0)
         return np.mean((seqs[:, -1, :] - pred[:, -1, :]) ** 2, axis=1)
+
+    def reconstruction_error_vector(self, seqs: np.ndarray) -> np.ndarray:
+        """시퀀스 마지막 스텝의 **변수별** 제곱오차 (W, F).
+
+        마할라노비스 거리 점수에 쓰인다. 일부 변수만 이상한 결함도 포착하고,
+        재구성오차가 정상보다 비정상적으로 작은 결함(부호 무관)도 분리한다.
+        """
+        if len(seqs) == 0:
+            return np.empty((0, self.n_features))
+        pred = self.model.predict(seqs, verbose=0)
+        return (seqs[:, -1, :] - pred[:, -1, :]) ** 2

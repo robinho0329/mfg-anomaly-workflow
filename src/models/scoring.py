@@ -3,10 +3,11 @@
 detect.py(단일 모델 탐지)와 compare.py(모델 비교)가 동일한 점수→플래그 로직을
 공유하도록 분리했다. 과탐(false positive) 억제 로직이 이 모듈에 집중된다.
 
-핵심 아이디어(베이스라인 과탐 원인 대응):
-  - 임계값을 fault 행을 제거해 이어붙인 '순수 정상 시퀀스'가 아니라,
-    전체 스트림에서 **마지막 스텝이 정상인 시퀀스**(경계 오염 포함)의 고분위로 보정.
-  - 분위 임계값에 안전 여유 배수(THRESHOLD_MARGIN)를 곱한다.
+핵심 아이디어:
+  - 점수: 마지막 스텝의 **변수별 재구성오차 벡터**에 대한 마할라노비스 거리.
+    정상 오차 분포(평균·공분산) 기준이라, 일부 변수만 이상한 결함과
+    재구성오차가 정상보다 비정상적으로 작은 결함(부호 무관)도 분리한다.
+  - 임계값: 순수 정상 시퀀스(윈도우 전체 정상) 점수 고분위 × 안전 여유 배수.
   - 행 점수를 rolling median으로 평활해 단발 스파이크 오탐을 억제한다.
 """
 
@@ -40,6 +41,35 @@ def sequence_labels(fault_id: np.ndarray, seq_len: int = SEQ_LEN) -> dict:
         [bool((fault_id[i:i + seq_len] == 0).all()) for i in range(n - seq_len + 1)]
     )
     return {"last_fault": last_fault, "pure_normal": pure_normal}
+
+
+class MahalanobisScorer:
+    """정상 재구성오차 벡터 분포 기준 마할라노비스 거리 스코어러.
+
+    준지도: 순수 정상 시퀀스의 변수별 오차 벡터로 평균·공분산을 추정하고,
+    임의 시퀀스 오차 벡터의 (제곱) 마할라노비스 거리를 이상 점수로 산출한다.
+    공분산은 소표본/고차원 안정성을 위해 Ledoit-Wolf 축소 추정을 사용한다.
+    """
+
+    def __init__(self):
+        self.mean_ = None
+        self.estimator_ = None
+
+    def fit(self, err_normal: np.ndarray) -> "MahalanobisScorer":
+        """정상 오차 벡터 (N, F)로 평균·축소공분산 적합."""
+        from sklearn.covariance import LedoitWolf
+
+        err_normal = np.asarray(err_normal, dtype=float)
+        self.mean_ = err_normal.mean(axis=0)
+        self.estimator_ = LedoitWolf().fit(err_normal)
+        return self
+
+    def score(self, err: np.ndarray) -> np.ndarray:
+        """오차 벡터 (W, F) → 제곱 마할라노비스 거리 (W,)."""
+        err = np.asarray(err, dtype=float)
+        if len(err) == 0:
+            return np.empty(0)
+        return self.estimator_.mahalanobis(err - self.mean_)
 
 
 def smooth_scores(scores: np.ndarray, window: int = SCORE_SMOOTH_WINDOW) -> np.ndarray:

@@ -12,6 +12,7 @@ import pytest
 from config.settings import PROCESS_COLS, SEQ_LEN
 from src.models.lstm_ae import make_sequences
 from src.models.scoring import (
+    MahalanobisScorer,
     calibrate_threshold,
     score_to_flags,
     sequence_labels,
@@ -87,6 +88,30 @@ def test_score_to_flags_separation():
     assert out["is_anomaly"][40:].sum() == 10     # 결함 전부 탐지
 
 
+# ── 마할라노비스 스코어러 ─────────────────────────────────
+def test_mahalanobis_scorer_separates_outlier():
+    """정상 분포에서 벗어난 오차 벡터에 큰 점수를 부여한다."""
+    err_normal = _RNG.normal(loc=1.0, scale=0.1, size=(200, 8))
+    scorer = MahalanobisScorer().fit(err_normal)
+    d_normal = scorer.score(err_normal)
+    d_outlier = scorer.score(np.full((1, 8), 5.0))  # 평균에서 크게 벗어남
+    assert d_outlier[0] > np.quantile(d_normal, 0.99)
+
+
+def test_mahalanobis_scorer_low_error_outlier():
+    """재구성오차가 비정상적으로 '작은' 벡터도 이상으로 분리(부호 무관)."""
+    err_normal = _RNG.normal(loc=1.0, scale=0.1, size=(200, 8))
+    scorer = MahalanobisScorer().fit(err_normal)
+    d_low = scorer.score(np.zeros((1, 8)))  # 0(정상보다 작음)
+    assert d_low[0] > np.quantile(scorer.score(err_normal), 0.95)
+
+
+def test_mahalanobis_scorer_empty():
+    """빈 입력 시 빈 배열(graceful)."""
+    scorer = MahalanobisScorer().fit(_RNG.normal(size=(50, 8)))
+    assert scorer.score(np.empty((0, 8))).shape[0] == 0
+
+
 # ── 모델(TF 필요) ─────────────────────────────────────────
 @pytest.mark.skipif(not _HAS_TF, reason="TensorFlow 미설치")
 def test_reconstruction_error_shape():
@@ -99,6 +124,19 @@ def test_reconstruction_error_shape():
     err = ae.reconstruction_error(seqs)
     assert err.shape == (len(seqs),)
     assert np.all(err >= 0)
+
+
+@pytest.mark.skipif(not _HAS_TF, reason="TensorFlow 미설치")
+def test_reconstruction_error_vector_shape():
+    """변수별 오차 벡터는 (시퀀스수, 피처수) 형태."""
+    from src.models.lstm_ae import LSTMAutoencoder
+
+    X = _RNG.normal(size=(40, len(PROCESS_COLS)))
+    seqs = make_sequences(X)
+    ae = LSTMAutoencoder(n_features=len(PROCESS_COLS)).fit(seqs)
+    ev = ae.reconstruction_error_vector(seqs)
+    assert ev.shape == (len(seqs), len(PROCESS_COLS))
+    assert np.all(ev >= 0)
 
 
 @pytest.mark.skipif(not _HAS_TF, reason="TensorFlow 미설치")

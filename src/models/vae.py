@@ -116,3 +116,10 @@ class LSTMVae:
             return np.empty(0)
         pred = self.model.predict(seqs, verbose=0)
         return np.mean((seqs[:, -1, :] - pred[:, -1, :]) ** 2, axis=1)
+
+    def reconstruction_error_vector(self, seqs: np.ndarray) -> np.ndarray:
+        """시퀀스 마지막 스텝의 변수별 제곱오차 (W, F). 마할라노비스 점수용."""
+        if len(seqs) == 0:
+            return np.empty((0, self.n_features))
+        pred = self.model.predict(seqs, verbose=0)
+        return (seqs[:, -1, :] - pred[:, -1, :]) ** 2

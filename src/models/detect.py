@@ -23,7 +23,7 @@ from config.settings import (
     THRESHOLD_MARGIN,
 )
 from src.models.lstm_ae import LSTMAutoencoder, make_sequences
-from src.models.scoring import score_to_flags, sequence_labels
+from src.models.scoring import MahalanobisScorer, score_to_flags, sequence_labels
 from src.models.transformer_ae import TransformerAutoencoder
 from src.models.vae import LSTMVae
 
@@ -34,9 +34,9 @@ MODEL_REGISTRY = {
     "transformer_ae": TransformerAutoencoder,
 }
 
-# 비교 평가(compare.py)에서 F1·recall 최고였던 모델을 기본값으로 사용
-# transformer_ae: F1=0.947, recall=0.960 (lstm_ae는 F1=0.929·FP=0 대안)
-DEFAULT_MODEL = "transformer_ae"
+# 비교 평가(compare.py, 885행)에서 ROC-AUC·PR-AUC·F1 최고였던 모델을 기본값으로 사용
+# vae: AUC=0.826, PR-AUC=0.802, F1≈0.77 (마할라노비스 점수 기준)
+DEFAULT_MODEL = "vae"
 
 
 def _load_clean() -> pd.DataFrame:
@@ -57,7 +57,8 @@ def fit_and_score(
     """단일 모델 학습 + 전체 스트림 탐지 → 출력 프레임 반환(저장은 호출측).
 
     학습 표본은 윈도우 전체가 정상인 '순수 정상 시퀀스'로 한정(준지도).
-    임계값은 전체 스트림 중 마지막 스텝이 정상인 시퀀스 점수의 고분위×여유로 보정.
+    점수는 마지막 스텝 변수별 오차 벡터의 마할라노비스 거리(정상 분포 기준),
+    임계값은 순수 정상 시퀀스 점수의 고분위×여유로 보정한다.
     """
     if model_name not in MODEL_REGISTRY:
         raise ValueError(f"알 수 없는 모델: {model_name} (가능: {list(MODEL_REGISTRY)})")
@@ -83,8 +84,12 @@ def fit_and_score(
         train_seqs = seqs[last_fault == 0]
     model = MODEL_REGISTRY[model_name](n_features=len(PROCESS_COLS)).fit(train_seqs)
 
-    # 4) 전체 점수 → 평활 + 임계값(순수 정상 보정) + 플래그
-    raw = model.reconstruction_error(seqs)
+    # 4) 마할라노비스 점수: 순수 정상 오차벡터 분포 기준 거리
+    err_all = model.reconstruction_error_vector(seqs)
+    scorer = MahalanobisScorer().fit(err_all[pure_normal])
+    raw = scorer.score(err_all)
+
+    # 5) 평활 + 임계값(순수 정상 보정) + 플래그
     flags = score_to_flags(raw, pure_normal, quantile, margin, smooth_window)
 
     out = df.iloc[SEQ_LEN - 1:].copy()
