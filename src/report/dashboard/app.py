@@ -20,7 +20,7 @@ from _lib import (
     inject_css,
     render_footer,
     render_sidebar,
-    tep_process_dot,
+    render_tep_pid,
 )
 
 st.set_page_config(page_title="제조 공정 이상탐지 워크플로우", page_icon="🏭", layout="wide")
@@ -40,23 +40,29 @@ st.markdown(
     "이 대시보드는 그 실제 벤치마크 데이터(52변수 시계열)로 이상탐지 파이프라인을 검증합니다."
 )
 
-_c_diag, _c_info = st.columns([1.5, 1])
-with _c_diag:
-    st.markdown("**공정 구성도**")
-    st.graphviz_chart(tep_process_dot(), use_container_width=True)
-    st.caption("반응기를 중심으로 응축·분리·재순환·스트리핑을 거쳐 제품(G·H) 생산. 점선=미반응물 재순환.")
-with _c_info:
-    st.markdown("**데이터 스키마 (52변수 + 라벨)**")
+st.markdown("**공정 구성도 (P&ID)**")
+render_tep_pid()
+st.caption(
+    "반응기를 중심으로 응축·분리·재순환·스트리핑을 거쳐 제품(G·H) 생산. "
+    "**파란 원**=계기 버블(측정변수 XMEAS: FI·PI·TI·LI·AI), **주황 밸브**=제어밸브(조작변수 XMV 1~11), "
+    "**원 안 숫자**=공정 스트림(1~11), **점선**=재순환."
+)
+
+_c1, _c2 = st.columns(2)
+with _c1:
     st.markdown(
+        "**데이터 스키마 (52변수 + 라벨)**\n"
         "- **XMEAS 1~41** — 측정변수: 유량·압력·온도·액위·**조성 분석값**\n"
         "- **XMV 1~11** — 조작변수: 밸브 개도(공급·재순환·퍼지·냉각수)\n"
         "- **fault_id** — `0`=정상, `1~20`=결함 모드(**IDV**)\n"
         "- **샘플링** — 3분 간격 다변량 시계열"
     )
+with _c2:
     st.markdown(
-        "**결함 모드(IDV) 10종**\n"
+        "**결함 모드(IDV) 10종 — 이 대시보드 수록**\n"
         "- 잘 탐지: IDV 1·2·4·6·7·8·14\n"
-        "- 부분: IDV 12 · **난탐지: IDV 3·18**"
+        "- 부분 탐지: IDV 12\n"
+        "- **난탐지(미탐): IDV 3·18** — 실 TEP에서도 알려진 난제"
     )
 
 st.divider()

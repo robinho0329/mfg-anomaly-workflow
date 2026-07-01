@@ -212,6 +212,28 @@ def tep_process_dot() -> str:
     """
 
 
+def render_tep_pid() -> None:
+    """TEP 공정 P&ID(SVG)를 반응형 이미지로 렌더.
+
+    assets/tep_pid.svg(scripts.gen_tep_pid 산출)를 data-URI <img>로 삽입해
+    컨테이너 폭에 맞춰 스케일. 파일이 없으면 개략 흐름도(graphviz)로 폴백.
+    """
+    import base64
+    from pathlib import Path
+
+    svg_path = Path(__file__).resolve().parent / "assets" / "tep_pid.svg"
+    if svg_path.exists():
+        b64 = base64.b64encode(svg_path.read_text(encoding="utf-8").encode()).decode()
+        st.markdown(
+            f'<img src="data:image/svg+xml;base64,{b64}" '
+            'style="width:100%;height:auto;border:1px solid #e6ebf0;'
+            'border-radius:10px;background:#fff;padding:6px;" alt="TEP P&ID"/>',
+            unsafe_allow_html=True,
+        )
+    else:
+        st.graphviz_chart(tep_process_dot(), use_container_width=True)
+
+
 @st.cache_data(show_spinner=False, ttl=600)
 def load_stream():
     """stream.db(tep_stream) 원시 52변수 스트림 로드. 없으면 빈 DataFrame (배포 방어)."""

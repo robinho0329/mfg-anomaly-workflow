@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" font-family="sans-serif">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 Z" fill="#4a5a68"/></marker></defs>
+<rect x="0" y="0" width="1200" height="660" fill="#ffffff"/>
+<text x="60" y="30" text-anchor="start" font-size="15" font-weight="800" fill="#1c2733">Tennessee Eastman Process — 계통 P&amp;ID (개략)</text>
+<text x="70" y="179" text-anchor="end" font-size="10.5" font-weight="700" fill="#1c2733">A 공급</text>
+<path d="M 78,175 L 110,175" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="126" cy="175" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="110" y1="175" x2="142" y2="175" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="126" y="172" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">FC</text>
+<text x="126" y="186" text-anchor="middle" font-size="8.5" fill="#7b8a9a">3</text>
+<path d="M 142,175 L 176,175" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<path d="M 181,166 L 181,184 L 192,175 Z" fill="#E67E22"/>
+<path d="M 203,166 L 203,184 L 192,175 Z" fill="#E67E22"/>
+<line x1="192" y1="175" x2="192" y2="159" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 185,159 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="192" y="151" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV3</text>
+<path d="M 208,175 L 250,175" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<circle cx="230" cy="162" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="230" y="165.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">1</text>
+<text x="70" y="239" text-anchor="end" font-size="10.5" font-weight="700" fill="#1c2733">D 공급</text>
+<path d="M 78,235 L 110,235" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="126" cy="235" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="110" y1="235" x2="142" y2="235" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="126" y="232" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">FC</text>
+<text x="126" y="246" text-anchor="middle" font-size="8.5" fill="#7b8a9a">1</text>
+<path d="M 142,235 L 176,235" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<path d="M 181,226 L 181,244 L 192,235 Z" fill="#E67E22"/>
+<path d="M 203,226 L 203,244 L 192,235 Z" fill="#E67E22"/>
+<line x1="192" y1="235" x2="192" y2="219" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 185,219 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="192" y="211" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV1</text>
+<path d="M 208,235 L 250,235" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<circle cx="230" cy="222" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="230" y="225.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">2</text>
+<text x="70" y="299" text-anchor="end" font-size="10.5" font-weight="700" fill="#1c2733">E 공급</text>
+<path d="M 78,295 L 110,295" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="126" cy="295" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="110" y1="295" x2="142" y2="295" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="126" y="292" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">FC</text>
+<text x="126" y="306" text-anchor="middle" font-size="8.5" fill="#7b8a9a">2</text>
+<path d="M 142,295 L 176,295" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<path d="M 181,286 L 181,304 L 192,295 Z" fill="#E67E22"/>
+<path d="M 203,286 L 203,304 L 192,295 Z" fill="#E67E22"/>
+<line x1="192" y1="295" x2="192" y2="279" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 185,279 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="192" y="271" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV2</text>
+<path d="M 208,295 L 250,295" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<circle cx="230" cy="282" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="230" y="285.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">3</text>
+<path d="M 250,175 L 250,295" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<path d="M 250,235 L 305,235" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M 305,159 A 44.0,9 0 0 1 393,159 L 393,356 A 44.0,9 0 0 1 305,356 Z" fill="#f4f6f8" stroke="#34495E" stroke-width="1.8"/>
+<ellipse cx="349.0" cy="159" rx="44.0" ry="9" fill="#f4f6f8" stroke="#34495E" stroke-width="1.8"/>
+<text x="349.0" y="257.5" text-anchor="middle" font-size="12" font-weight="800" fill="#1c2733">반응기</text>
+<text x="349.0" y="272.5" text-anchor="middle" font-size="9" fill="#7b8a9a">Reactor</text>
+<circle cx="322" cy="178" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="306" y1="178" x2="338" y2="178" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="322" y="175" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">PI</text>
+<text x="322" y="189" text-anchor="middle" font-size="8.5" fill="#7b8a9a">7</text>
+<circle cx="376" cy="205" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="360" y1="205" x2="392" y2="205" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="376" y="202" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">TI</text>
+<text x="376" y="216" text-anchor="middle" font-size="8.5" fill="#7b8a9a">9</text>
+<circle cx="376" cy="300" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="360" y1="300" x2="392" y2="300" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="376" y="297" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">LI</text>
+<text x="376" y="311" text-anchor="middle" font-size="8.5" fill="#7b8a9a">8</text>
+<text x="300" y="400" text-anchor="end" font-size="9" font-weight="700" fill="#17A2B8">CW</text>
+<path d="M 270,396 L 305,340" fill="none" stroke="#17A2B8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<path d="M 277,376 L 277,394 L 288,385 Z" fill="#E67E22"/>
+<path d="M 299,376 L 299,394 L 288,385 Z" fill="#E67E22"/>
+<line x1="288" y1="385" x2="288" y2="369" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 281,369 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="288" y="361" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV10</text>
+<text x="360" y="392" text-anchor="middle" font-size="8.5" font-weight="400" fill="#17A2B8">반응기 냉각수</text>
+<path d="M 349,150 L 349,112 L 470,112" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="430" cy="100" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="430" y="103.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">7</text>
+<rect x="470" y="92" width="120" height="42" rx="8" fill="#f4f6f8" stroke="#34495E" stroke-width="1.8"/>
+<path d="M 478,113.0 l 12,-14.0 l 20,28.0 l 20,-28.0 l 20,28.0 l 12,-14.0" fill="none" stroke="#34495E" stroke-width="1" opacity="0.55"/>
+<text x="530.0" y="148" text-anchor="middle" font-size="11" font-weight="800" fill="#1c2733">응축기 Condenser</text>
+<path d="M 519,51 L 519,69 L 530,60 Z" fill="#E67E22"/>
+<path d="M 541,51 L 541,69 L 530,60 Z" fill="#E67E22"/>
+<line x1="530" y1="60" x2="530" y2="44" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 523,44 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="530" y="36" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV11</text>
+<path d="M 530,70 L 530,92" fill="none" stroke="#17A2B8" stroke-width="1.8"/>
+<text x="568" y="58" text-anchor="middle" font-size="8.5" font-weight="400" fill="#17A2B8">냉각수</text>
+<path d="M 590,112 L 660,112 L 660,150" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="636" cy="100" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="636" y="103.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">8</text>
+<path d="M 618,159 A 44.0,9 0 0 1 706,159 L 706,341 A 44.0,9 0 0 1 618,341 Z" fill="#f4f6f8" stroke="#34495E" stroke-width="1.8"/>
+<ellipse cx="662.0" cy="159" rx="44.0" ry="9" fill="#f4f6f8" stroke="#34495E" stroke-width="1.8"/>
+<text x="662.0" y="250.0" text-anchor="middle" font-size="12" font-weight="800" fill="#1c2733"></text>
+<text x="662" y="245" text-anchor="middle" font-size="12" font-weight="800" fill="#1c2733">기액분리기</text>
+<text x="662" y="260" text-anchor="middle" font-size="9" fill="#7b8a9a">Separator</text>
+<circle cx="634" cy="178" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="618" y1="178" x2="650" y2="178" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="634" y="175" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">PI</text>
+<text x="634" y="189" text-anchor="middle" font-size="8.5" fill="#7b8a9a">13</text>
+<circle cx="690" cy="205" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="674" y1="205" x2="706" y2="205" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="690" y="202" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">TI</text>
+<text x="690" y="216" text-anchor="middle" font-size="8.5" fill="#7b8a9a">11</text>
+<circle cx="690" cy="300" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="674" y1="300" x2="706" y2="300" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="690" y="297" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">LI</text>
+<text x="690" y="311" text-anchor="middle" font-size="8.5" fill="#7b8a9a">12</text>
+<path d="M 662,150 L 662,96" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<circle cx="662" cy="74" r="22" fill="#f4f6f8" stroke="#34495E" stroke-width="1.8"/>
+<path d="M 640,58.6 L 684,66.3 M 640,89.4 L 684,81.7" stroke="#34495E" stroke-width="1.2"/>
+<text x="662" y="109" text-anchor="middle" font-size="10" font-weight="700" fill="#1c2733">압축기 K-1</text>
+<circle cx="710" cy="74" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="694" y1="74" x2="726" y2="74" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="710" y="71" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">JI</text>
+<text x="710" y="85" text-anchor="middle" font-size="8.5" fill="#7b8a9a">20</text>
+<path d="M 579,65 L 579,83 L 590,74 Z" fill="#E67E22"/>
+<path d="M 601,65 L 601,83 L 590,74 Z" fill="#E67E22"/>
+<line x1="590" y1="74" x2="590" y2="58" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 583,58 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="590" y="50" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV5</text>
+<path d="M 640,74 L 606,74" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<path d="M 574,74 L 250,74 L 250,175" fill="none" stroke="#4a5a68" stroke-width="2.2" stroke-dasharray="7,5" marker-end="url(#arrow)"/>
+<text x="430" y="66" text-anchor="middle" font-size="9" font-weight="400" fill="#7b8a9a">재순환 가스 (stream 8)</text>
+<circle cx="300" cy="74" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="300" y="77.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">8</text>
+<path d="M 662,52 L 662,30" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<path d="M 709,21 L 709,39 L 720,30 Z" fill="#E67E22"/>
+<path d="M 731,21 L 731,39 L 720,30 Z" fill="#E67E22"/>
+<line x1="720" y1="30" x2="720" y2="14" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 713,14 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="720" y="6" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV6</text>
+<path d="M 662,30 L 704,30" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<circle cx="760" cy="30" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="744" y1="30" x2="776" y2="30" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="760" y="27" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">AI</text>
+<text x="760" y="41" text-anchor="middle" font-size="8.5" fill="#7b8a9a">R</text>
+<path d="M 776,30 L 820,30" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="846" y="34" text-anchor="start" font-size="10" font-weight="700" fill="#1c2733">퍼지 Purge</text>
+<circle cx="690" cy="20" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="690" y="23.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">9</text>
+<path d="M 662,350 L 662,400 L 760,400" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<path d="M 704,391 L 704,409 L 715,400 Z" fill="#E67E22"/>
+<path d="M 726,391 L 726,409 L 715,400 Z" fill="#E67E22"/>
+<line x1="715" y1="400" x2="715" y2="384" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 708,384 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="715" y="376" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV7</text>
+<path d="M 760,400 L 858,400 L 858,300" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="792" cy="388" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="792" y="391.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">10</text>
+<text x="560" y="564" text-anchor="end" font-size="10.5" font-weight="700" fill="#1c2733">A·B·C 공급</text>
+<path d="M 568,560 L 600,560" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="616" cy="560" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="600" y1="560" x2="632" y2="560" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="616" y="557" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">FC</text>
+<text x="616" y="571" text-anchor="middle" font-size="8.5" fill="#7b8a9a">4</text>
+<path d="M 632,560 L 664,560" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<path d="M 669,551 L 669,569 L 680,560 Z" fill="#E67E22"/>
+<path d="M 691,551 L 691,569 L 680,560 Z" fill="#E67E22"/>
+<line x1="680" y1="560" x2="680" y2="544" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 673,544 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="680" y="536" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV4</text>
+<path d="M 696,560 L 830,560 L 830,470" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="760" cy="548" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="760" y="551.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">4</text>
+<path d="M 830,470 L 862,470" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="862" y="190" width="74" height="250" rx="14" fill="#f4f6f8" stroke="#34495E" stroke-width="1.8"/>
+<line x1="868" y1="240.0" x2="930" y2="240.0" stroke="#34495E" stroke-width="0.8" opacity="0.5"/>
+<line x1="868" y1="290.0" x2="930" y2="290.0" stroke="#34495E" stroke-width="0.8" opacity="0.5"/>
+<line x1="868" y1="340.0" x2="930" y2="340.0" stroke="#34495E" stroke-width="0.8" opacity="0.5"/>
+<line x1="868" y1="390.0" x2="930" y2="390.0" stroke="#34495E" stroke-width="0.8" opacity="0.5"/>
+<text x="899.0" y="315.0" text-anchor="middle" font-size="12" font-weight="800" fill="#1c2733" transform="rotate(-90 899.0,315.0)">스트리퍼</text>
+<circle cx="946" cy="220" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="930" y1="220" x2="962" y2="220" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="946" y="217" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">PI</text>
+<text x="946" y="231" text-anchor="middle" font-size="8.5" fill="#7b8a9a">16</text>
+<circle cx="946" cy="300" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="930" y1="300" x2="962" y2="300" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="946" y="297" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">TI</text>
+<text x="946" y="311" text-anchor="middle" font-size="8.5" fill="#7b8a9a">18</text>
+<circle cx="946" cy="400" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="930" y1="400" x2="962" y2="400" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="946" y="397" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">LI</text>
+<text x="946" y="411" text-anchor="middle" font-size="8.5" fill="#7b8a9a">15</text>
+<text x="860" y="470" text-anchor="end" font-size="9" font-weight="700" fill="#17A2B8">스팀</text>
+<path d="M 888,461 L 888,479 L 899,470 Z" fill="#E67E22"/>
+<path d="M 910,461 L 910,479 L 899,470 Z" fill="#E67E22"/>
+<line x1="899" y1="470" x2="899" y2="454" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 892,454 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="899" y="446" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV9</text>
+<path d="M 899,458 L 899,440" fill="none" stroke="#17A2B8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<path d="M 899,190 L 899,150 L 760,150" fill="none" stroke="#4a5a68" stroke-width="2.2" stroke-dasharray="7,5" marker-end="url(#arrow)"/>
+<text x="820" y="142" text-anchor="middle" font-size="8.5" font-weight="400" fill="#7b8a9a">오버헤드 재순환 (stream 5)</text>
+<circle cx="870" cy="165" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="870" y="168.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">5</text>
+<path d="M 936,415 L 990,415" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<path d="M 995,406 L 995,424 L 1006,415 Z" fill="#E67E22"/>
+<path d="M 1017,406 L 1017,424 L 1006,415 Z" fill="#E67E22"/>
+<line x1="1006" y1="415" x2="1006" y2="399" stroke="#E67E22" stroke-width="1.4"/>
+<path d="M 999,399 q7,-7 14,0 z" fill="none" stroke="#E67E22" stroke-width="1.4"/>
+<text x="1006" y="391" text-anchor="middle" font-size="8.5" font-weight="700" fill="#E67E22">XMV8</text>
+<path d="M 1022,415 L 1060,415" fill="none" stroke="#4a5a68" stroke-width="2.2"/>
+<circle cx="1090" cy="415" r="16" fill="#fff" stroke="#2C7BE5" stroke-width="1.6"/>
+<line x1="1074" y1="415" x2="1106" y2="415" stroke="#2C7BE5" stroke-width="0.7"/>
+<text x="1090" y="412" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1c2733">AI</text>
+<text x="1090" y="426" text-anchor="middle" font-size="8.5" fill="#7b8a9a">P</text>
+<path d="M 1106,415 L 1150,415" fill="none" stroke="#4a5a68" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="1074" y="450" width="96" height="34" rx="6" fill="#d7f0df" stroke="#27AE60" stroke-width="1.8"/>
+<text x="1122" y="471" text-anchor="middle" font-size="11" font-weight="800" fill="#1c2733">제품 G · H</text>
+<path d="M 1122,415 L 1122,450" fill="none" stroke="#27AE60" stroke-width="2.2" marker-end="url(#arrow)"/>
+<circle cx="1046" cy="403" r="9.5" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="1046" y="406.3" text-anchor="middle" font-size="9" font-weight="800" fill="#4a5a68">11</text>
+<line x1="60" y1="612" x2="1140" y2="611" stroke="#e6ebf0" stroke-width="1"/>
+<circle cx="80" cy="630" r="9" fill="#fff" stroke="#2C7BE5" stroke-width="1.4"/>
+<text x="96" y="634" text-anchor="start" font-size="9" font-weight="400" fill="#1c2733">계기 버블(측정: FI/PI/TI/LI/AI 등 XMEAS)</text>
+<path d="M 400,623 L 400,637 L 409,630 Z M 418,623 L 418,637 L 409,630 Z" fill="#E67E22"/>
+<text x="426" y="634" text-anchor="start" font-size="9" font-weight="400" fill="#1c2733">제어밸브(조작변수 XMV 1~11)</text>
+<circle cx="680" cy="630" r="9" fill="#fff" stroke="#4a5a68" stroke-width="1.2"/>
+<text x="696" y="634" text-anchor="start" font-size="9" font-weight="400" fill="#1c2733">번호 = 공정 스트림(1~11)</text>
+<line x1="900" y1="630" x2="930" y2="630" stroke="#7b8a9a" stroke-width="2" stroke-dasharray="7,5"/>
+<text x="936" y="634" text-anchor="start" font-size="9" font-weight="400" fill="#1c2733">재순환 라인</text>
+</svg>
