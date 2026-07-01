@@ -232,7 +232,6 @@ cvalve(KX - 62, KY, "XMV5", tagdx=20, tagdy=3)
 pipe([(KX - 22, KY), (KX - 51, KY)], arrow=False)
 pipe([(KX - 73, KY), (JX, KY), (JX, JY)], arrow=False)
 stream_no(372, KY, "8")
-label(486, KY - 8, "재순환 가스 (stream 8)", 9)
 
 # ── 분리기 액 → 스트리퍼 (stream 10) + 밸브(액위제어 XMV7) ───────────
 pipe([(SCX, 410), (SCX, 470), (846, 470)], arrow=False)
@@ -269,7 +268,6 @@ label(STCX - 70, 532, "스팀", 8.5, 700, "end")
 pipe([(STCX, 230), (STCX, 74), (JX + 12, 74)], arrow=False)
 pipe([(JX + 12, 74), (JX, 74), (JX, KY)], arrow=False)
 stream_no(STCX - 58, 74, "5")
-label(720, 66, "스트리퍼 오버헤드 재순환 (stream 5)", 8.5)
 
 # ── 스트리퍼 바닥 → 제품 (stream 11) + 액위제어 XMV8 ─────────────────
 pipe([(STX + STW, 476), (1044, 476)], arrow=False)

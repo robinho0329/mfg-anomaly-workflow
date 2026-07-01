@@ -181,7 +181,6 @@
 <path d="M 677.0,116 L 300,116 L 300,380" fill="none" stroke="#1f2933" stroke-width="2"/>
 <polygon points="372,106 382,116 372,126 362,116" fill="#ffffff" stroke="#1f2933" stroke-width="1.1"/>
 <text x="372" y="119.3" text-anchor="middle" font-size="8.5" font-weight="800" fill="#1f2933">8</text>
-<text x="486" y="108" text-anchor="middle" font-size="9" font-weight="400" fill="#1f2933">재순환 가스 (stream 8)</text>
 <path d="M 750.0,410 L 750.0,470 L 846,470" fill="none" stroke="#1f2933" stroke-width="2"/>
 <circle cx="792" cy="440" r="17" fill="#ffffff" stroke="#1f2933" stroke-width="1.4"/>
 <text x="792" y="437" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1f2933">FT</text>
@@ -257,7 +256,6 @@
 <path d="M 312,74 L 300,74 L 300,116" fill="none" stroke="#1f2933" stroke-width="2"/>
 <polygon points="933.0,64 943.0,74 933.0,84 923.0,74" fill="#ffffff" stroke="#1f2933" stroke-width="1.1"/>
 <text x="933.0" y="77.3" text-anchor="middle" font-size="8.5" font-weight="800" fill="#1f2933">5</text>
-<text x="720" y="66" text-anchor="middle" font-size="8.5" font-weight="400" fill="#1f2933">스트리퍼 오버헤드 재순환 (stream 5)</text>
 <path d="M 1032,476 L 1044,476" fill="none" stroke="#1f2933" stroke-width="2"/>
 <circle cx="1022" cy="442" r="17" fill="#ffffff" stroke="#1f2933" stroke-width="1.4"/>
 <text x="1022" y="439" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1f2933">FT</text>
