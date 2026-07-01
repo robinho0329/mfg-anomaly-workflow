@@ -5,16 +5,31 @@ mfg-model 산출 비교표/커브/IDV별 탐지율을 read-only로 임베드.
 """
 
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
 
 from config.settings import MODELS_DIR
+from _lib import (
+    CHART_COLORS,
+    dash_header,
+    inject_css,
+    kpi_tile,
+    render_footer,
+    render_sidebar,
+    style_fig,
+)
 
 # 기본 모델 및 표시 라벨
 DEFAULT_MODEL = "vae"
 MODEL_LABELS = {"lstm_ae": "LSTM-AE", "vae": "VAE ★기본", "transformer_ae": "Transformer-AE"}
 
-st.title("④ 모델 비교 (딥러닝 이상탐지)")
-st.caption("LSTM-AE · VAE · Transformer-AE 3종을 동일 데이터(885행)에서 비교 — mfg-model 산출")
+st.set_page_config(page_title="모델비교", page_icon="🧪", layout="wide")
+inject_css()
+render_sidebar()
+dash_header(
+    "④ 모델 비교 (딥러닝 이상탐지)",
+    "LSTM-AE · VAE · Transformer-AE 3종을 동일 데이터(885행)에서 비교 — mfg-model 산출",
+)
 
 comp_path = MODELS_DIR / "comparison.parquet"
 if not comp_path.exists():
@@ -43,12 +58,17 @@ best = comp[comp["model"] == DEFAULT_MODEL]
 if not best.empty:
     r = best.iloc[0]
     st.subheader("기본 모델: VAE 핵심 지표")
-    c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("Precision", f"{r['precision']:.3f}")
-    c2.metric("Recall", f"{r['recall']:.3f}")
-    c3.metric("F1", f"{r['f1']:.3f}")
-    c4.metric("ROC-AUC", f"{r['roc_auc']:.3f}")
-    c5.metric("PR-AUC", f"{r['pr_auc']:.3f}")
+    cols = st.columns(5)
+    _metrics = [
+        ("Precision", r["precision"], "#2C7BE5"),
+        ("Recall", r["recall"], "#17A2B8"),
+        ("F1", r["f1"], "#E67E22"),
+        ("ROC-AUC", r["roc_auc"], "#27AE60"),
+        ("PR-AUC", r["pr_auc"], "#6F42C1"),
+    ]
+    for col, (lbl, val, acc) in zip(cols, _metrics):
+        with col:
+            kpi_tile(lbl, f"{val:.3f}", accent=acc)
     st.caption(
         f"오탐(FP) {int(r['fp'])} · 미탐(FN) {int(r['fn'])} — "
         "정밀도 우선 운용 시 VAE가 오탐을 가장 적게 냅니다(조건: 현재 885행 기준)."
@@ -68,7 +88,16 @@ st.dataframe(
 # ── 성능 막대 비교 ────────────────────────────────────────
 st.subheader("성능 지표 막대 비교")
 bar_metrics = [c for c in ["f1", "roc_auc", "pr_auc"] if c in comp.columns]
-st.bar_chart(comp.set_index("모델")[bar_metrics])
+_label_map = {"f1": "F1", "roc_auc": "ROC-AUC", "pr_auc": "PR-AUC"}
+fig_bar = go.Figure()
+for i, m in enumerate(bar_metrics):
+    fig_bar.add_trace(go.Bar(
+        x=comp["모델"], y=comp[m], name=_label_map.get(m, m),
+        marker_color=CHART_COLORS[i],
+        text=[f"{v:.3f}" for v in comp[m]], textposition="outside",
+    ))
+fig_bar.update_layout(barmode="group", yaxis_title="점수", yaxis_range=[0, 1])
+st.plotly_chart(style_fig(fig_bar, height=340), use_container_width=True)
 
 # ── ROC / PR 커브 ─────────────────────────────────────────
 st.subheader("ROC · PR 커브")
@@ -105,3 +134,5 @@ st.markdown(
     상세: `src/models/MODEL_CARD.md`
     """
 )
+
+render_footer()

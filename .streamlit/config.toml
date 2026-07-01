@@ -1,7 +1,12 @@
-# Streamlit 대시보드 설정 (로컬·클라우드 공통)
+# Streamlit 대시보드 설정 (로컬·클라우드 공통) — 인더스트리얼 BI 테마
 [theme]
 base = "light"
-primaryColor = "#2563eb"
+primaryColor = "#E67E22"          # 시그널 오렌지 (제조 관제 액센트)
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f4f6f8"
+textColor = "#1c2733"
+font = "sans serif"
 
 [server]
 headless = true
+runOnSave = false

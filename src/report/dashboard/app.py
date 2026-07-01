@@ -6,10 +6,15 @@
 
 import streamlit as st
 
-st.set_page_config(page_title="제조 공정 이상탐지 워크플로우", page_icon="🏭", layout="wide")
+from _lib import dash_header, inject_css, render_footer, render_sidebar
 
-st.title("🏭 제조 공정 이상탐지 자동화 워크플로우")
-st.caption("TEP 다변량 시계열 · 수집 → 전처리/EDA → 딥러닝 이상탐지 → 리포트")
+st.set_page_config(page_title="제조 공정 이상탐지 워크플로우", page_icon="🏭", layout="wide")
+inject_css()
+render_sidebar()
+dash_header(
+    "🏭 제조 공정 이상탐지 자동화 워크플로우",
+    "TEP 다변량 시계열 · 수집 → 전처리/EDA → 딥러닝 이상탐지 → 리포트 (준지도 AE 계열)",
+)
 
 st.markdown(
     """
@@ -31,3 +36,5 @@ st.markdown(
     왼쪽 사이드바에서 페이지를 선택하세요.
     """
 )
+
+render_footer()

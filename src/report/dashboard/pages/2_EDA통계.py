@@ -9,9 +9,15 @@ import pandas as pd
 import streamlit as st
 
 from config.settings import EDA_DIR
+from _lib import dash_header, inject_css, render_footer, render_sidebar
 
-st.title("② EDA · 통계 분석")
-st.caption("정상/결함 분포 비교와 통계 검정으로 변수별 분별력을 점검 — mfg-eda 산출 임베드")
+st.set_page_config(page_title="EDA·통계", page_icon="📊", layout="wide")
+inject_css()
+render_sidebar()
+dash_header(
+    "② EDA · 통계 분석",
+    "정상/결함 분포 비교와 통계 검정으로 변수별 분별력 점검 — mfg-eda 산출 임베드",
+)
 
 if not EDA_DIR.exists():
     st.warning("EDA 산출 폴더가 없습니다. `python -m src.pipeline.eda` 를 먼저 실행하세요.")
@@ -84,3 +90,5 @@ if summary.empty:
     st.info("`summary_stats.parquet` 산출물이 아직 없습니다.")
 else:
     st.dataframe(summary, use_container_width=True)
+
+render_footer()
