@@ -24,6 +24,7 @@ from _lib import (
     inject_css,
     kpi_tile,
     render_footer,
+    render_insight,
     render_sidebar,
     style_fig,
 )
@@ -84,6 +85,12 @@ if not best.empty:
         "(실 TEP 1,940행 기준)."
     )
 
+render_insight(
+    "세 딥러닝 오토인코더를 **동일 실 TEP 데이터**로 비교했습니다. "
+    "**Transformer-AE**가 종합 성능(F1·ROC-AUC) 최고, **VAE**는 오탐 0으로 정밀도 최고 — "
+    "운영 정책(과탐 민감 vs 미탐 민감)에 따라 선택할 수 있습니다."
+)
+
 # ── 종합 비교표 ───────────────────────────────────────────
 st.subheader("모델별 종합 성능")
 metric_cols = ["모델", "precision", "recall", "f1", "roc_auc", "pr_auc", "tp", "fp", "fn", "tn"]
@@ -95,19 +102,39 @@ st.dataframe(
     use_container_width=True,
 )
 
-# ── 성능 막대 비교 ────────────────────────────────────────
-st.subheader("성능 지표 막대 비교")
+# ── 성능 막대 + 레이더 비교 ───────────────────────────────
 bar_metrics = [c for c in ["f1", "roc_auc", "pr_auc"] if c in comp.columns]
-_label_map = {"f1": "F1", "roc_auc": "ROC-AUC", "pr_auc": "PR-AUC"}
-fig_bar = go.Figure()
-for i, m in enumerate(bar_metrics):
-    fig_bar.add_trace(go.Bar(
-        x=comp["모델"], y=comp[m], name=_label_map.get(m, m),
-        marker_color=CHART_COLORS[i],
-        text=[f"{v:.3f}" for v in comp[m]], textposition="outside",
-    ))
-fig_bar.update_layout(barmode="group", yaxis_title="점수", yaxis_range=[0, 1])
-st.plotly_chart(style_fig(fig_bar, height=340), use_container_width=True)
+_label_map = {"f1": "F1", "roc_auc": "ROC-AUC", "pr_auc": "PR-AUC",
+              "precision": "Precision", "recall": "Recall"}
+cb, cr = st.columns(2)
+with cb:
+    st.subheader("성능 지표 막대 비교")
+    fig_bar = go.Figure()
+    for i, m in enumerate(bar_metrics):
+        fig_bar.add_trace(go.Bar(
+            x=comp["모델"], y=comp[m], name=_label_map.get(m, m),
+            marker_color=CHART_COLORS[i],
+            text=[f"{v:.3f}" for v in comp[m]], textposition="outside",
+        ))
+    fig_bar.update_layout(barmode="group", yaxis_title="점수", yaxis_range=[0, 1.05])
+    st.plotly_chart(style_fig(fig_bar, height=360), use_container_width=True)
+with cr:
+    st.subheader("종합 프로파일 (레이더)")
+    radar_metrics = [c for c in ["precision", "recall", "f1", "roc_auc", "pr_auc"] if c in comp.columns]
+    axes = [_label_map[m] for m in radar_metrics]
+    fig_r = go.Figure()
+    for i, (_, row) in enumerate(comp.iterrows()):
+        vals = [row[m] for m in radar_metrics]
+        fig_r.add_trace(go.Scatterpolar(
+            r=vals + [vals[0]], theta=axes + [axes[0]], name=row["모델"],
+            fill="toself", opacity=0.55, line_color=CHART_COLORS[i],
+        ))
+    fig_r.update_layout(
+        polar=dict(radialaxis=dict(range=[0.5, 1.0], tickfont_size=9)),
+        legend=dict(orientation="h", y=-0.1), height=360, margin=dict(l=30, r=30, t=30, b=30),
+    )
+    st.plotly_chart(fig_r, use_container_width=True)
+st.caption("막대=지표별 절대비교 · 레이더=모델별 균형(넓고 균일할수록 전방위 우수). Transformer-AE가 가장 큰 면적.")
 
 # ── ROC / PR 커브 ─────────────────────────────────────────
 st.subheader("ROC · PR 커브")
@@ -117,19 +144,31 @@ if curves_png.exists():
 else:
     st.info("`roc_pr_curves.png` 산출물이 아직 없습니다.")
 
-# ── 결함 IDV별 탐지율 ─────────────────────────────────────
-st.subheader("결함 IDV별 탐지율")
+# ── 결함 IDV별 탐지율 (히트맵) ────────────────────────────
+st.subheader("결함 IDV별 탐지율 — 모델 × IDV 히트맵")
 per_fault = load_per_fault()
 if per_fault.empty:
     st.info("`comparison_per_fault.parquet` 산출물이 아직 없습니다.")
 else:
     pf = per_fault[per_fault["fault_id"] != 0].copy()
-    pivot = pf.pivot_table(index="fault_id", columns="model", values="recall")
-    pivot = pivot.rename(columns=MODEL_LABELS)
-    st.dataframe(pivot.style.format("{:.2f}"), use_container_width=True)
+    pivot = pf.pivot_table(index="model", columns="fault_id", values="recall")
+    pivot = pivot.rename(index=MODEL_LABELS)
+    fig_hm = go.Figure(go.Heatmap(
+        z=pivot.values,
+        x=[f"IDV{int(c)}" for c in pivot.columns],
+        y=list(pivot.index),
+        colorscale=[[0, "#E74C3C"], [0.5, "#F4C20D"], [1, "#27AE60"]],
+        zmin=0, zmax=1, colorbar=dict(title="탐지율"),
+        text=[[f"{v:.2f}" for v in row] for row in pivot.values],
+        texttemplate="%{text}", textfont_size=11,
+        hovertemplate="%{y}<br>%{x} · 탐지율 %{z:.0%}<extra></extra>",
+    ))
+    fig_hm.update_layout(height=260, margin=dict(l=8, r=8, t=20, b=8))
+    st.plotly_chart(fig_hm, use_container_width=True)
     st.caption(
-        "IDV 3·18은 재구성오차가 정상과 사실상 구별되지 않아 AE 계열 원리상 미탐(0.00) — "
-        "실제 TEP에서도 잘 알려진 난탐지 결함. IDV 12는 부분 탐지. 한계를 그대로 표기합니다."
+        "초록=잘 탐지, 노랑=부분, 빨강=미탐. **IDV 3·18**은 세 모델 모두 미탐(0.00) — "
+        "실제 TEP에서도 잘 알려진 난탐지 결함으로, AE 재구성오차가 정상과 구별되지 않습니다. "
+        "IDV 12는 부분 탐지. 한계를 그대로 표기합니다."
     )
 
 # ── MODEL_CARD 핵심 요약 ──────────────────────────────────

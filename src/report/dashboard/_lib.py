@@ -147,6 +147,56 @@ def render_footer() -> None:
     """모든 페이지 하단 공통 푸터 — 포트폴리오 프레이밍."""
     st.divider()
     st.caption(
-        f"🏭 TEP 다변량 시계열 이상탐지 · 수집→EDA→딥러닝(VAE/LSTM-AE/Transformer-AE)→리포트 "
+        f"🏭 실제 TEP 벤치마크 이상탐지 · 수집→EDA→딥러닝(Transformer/VAE/LSTM-AE)→리포트 "
         f"· [코드]({GITHUB_URL}) · 제조 AI/예지보전 직무 포트폴리오"
     )
+
+
+# ----------------------------------------------------------------------
+# 도메인 상수 / 인사이트 / 데이터 로더
+# ----------------------------------------------------------------------
+# TEP 결함 모드(IDV) 짧은 설명 — 라벨/툴팁용 (Downs & Vogel 표준 disturbance)
+FAULT_LABELS: dict[int, str] = {
+    0: "정상 운전",
+    1: "IDV1 · A/C 공급비 변화",
+    2: "IDV2 · B 조성 변화",
+    3: "IDV3 · D 공급온도(난탐지)",
+    4: "IDV4 · 반응기 냉각수 입구온도",
+    6: "IDV6 · A 공급 손실",
+    7: "IDV7 · C 헤더 압력손실",
+    8: "IDV8 · A/B/C 조성 변화",
+    12: "IDV12 · 응축기 냉각수온도(랜덤)",
+    14: "IDV14 · 반응기 냉각밸브 고착",
+    18: "IDV18 · 미지 결함(난탐지)",
+}
+
+
+def fault_name(fid: int) -> str:
+    """fault_id → 짧은 라벨."""
+    return FAULT_LABELS.get(int(fid), f"IDV{int(fid)}")
+
+
+def render_insight(body: str) -> None:
+    """데이터 해석을 쉬운 말로 전달하는 인사이트 콜아웃."""
+    st.info(f"💡 {body}")
+
+
+@st.cache_data(show_spinner=False, ttl=600)
+def load_stream():
+    """stream.db(tep_stream) 원시 52변수 스트림 로드. 없으면 빈 DataFrame (배포 방어)."""
+    import sqlite3
+
+    import pandas as pd
+
+    from config.settings import COLLECT_TABLE, DB_PATH
+
+    if not DB_PATH.exists():
+        return pd.DataFrame()
+    try:
+        with sqlite3.connect(DB_PATH) as conn:
+            df = pd.read_sql(f"SELECT * FROM {COLLECT_TABLE}", conn)
+    except Exception:  # noqa: BLE001 — 테이블 부재 등 배포 환경 방어
+        return pd.DataFrame()
+    if "timestamp" in df.columns:
+        df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    return df
