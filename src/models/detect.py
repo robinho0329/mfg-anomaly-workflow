@@ -34,9 +34,9 @@ MODEL_REGISTRY = {
     "transformer_ae": TransformerAutoencoder,
 }
 
-# 비교 평가(compare.py, 885행)에서 ROC-AUC·PR-AUC·F1 최고였던 모델을 기본값으로 사용
-# vae: AUC=0.826, PR-AUC=0.802, F1≈0.77 (마할라노비스 점수 기준)
-DEFAULT_MODEL = "vae"
+# 비교 평가(compare.py, 실 TEP 1940행)에서 F1·ROC-AUC 최고였던 모델을 기본값으로 사용
+# transformer_ae: F1=0.849, ROC-AUC=0.920, Recall=0.748 (마할라노비스 점수 기준)
+DEFAULT_MODEL = "transformer_ae"
 
 
 def _load_clean() -> pd.DataFrame:

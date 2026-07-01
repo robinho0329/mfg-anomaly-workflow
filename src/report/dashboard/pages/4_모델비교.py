@@ -29,15 +29,15 @@ from _lib import (
 )
 
 # 기본 모델 및 표시 라벨
-DEFAULT_MODEL = "vae"
-MODEL_LABELS = {"lstm_ae": "LSTM-AE", "vae": "VAE ★기본", "transformer_ae": "Transformer-AE"}
+DEFAULT_MODEL = "transformer_ae"
+MODEL_LABELS = {"lstm_ae": "LSTM-AE", "vae": "VAE", "transformer_ae": "Transformer-AE ★기본"}
 
 st.set_page_config(page_title="모델비교", page_icon="🧪", layout="wide")
 inject_css()
 render_sidebar()
 dash_header(
     "④ 모델 비교 (딥러닝 이상탐지)",
-    "LSTM-AE · VAE · Transformer-AE 3종을 동일 데이터(885행)에서 비교 — mfg-model 산출",
+    "LSTM-AE · VAE · Transformer-AE 3종을 동일 실 TEP 데이터(1,940행)에서 비교 — mfg-model 산출",
 )
 
 comp_path = MODELS_DIR / "comparison.parquet"
@@ -66,7 +66,7 @@ comp["모델"] = comp["model"].map(MODEL_LABELS).fillna(comp["model"])
 best = comp[comp["model"] == DEFAULT_MODEL]
 if not best.empty:
     r = best.iloc[0]
-    st.subheader("기본 모델: VAE 핵심 지표")
+    st.subheader("기본 모델: Transformer-AE 핵심 지표")
     cols = st.columns(5)
     _metrics = [
         ("Precision", r["precision"], "#2C7BE5"),
@@ -80,7 +80,8 @@ if not best.empty:
             kpi_tile(lbl, f"{val:.3f}", accent=acc)
     st.caption(
         f"오탐(FP) {int(r['fp'])} · 미탐(FN) {int(r['fn'])} — "
-        "정밀도 우선 운용 시 VAE가 오탐을 가장 적게 냅니다(조건: 현재 885행 기준)."
+        "Transformer-AE가 F1·ROC-AUC 최고. 정밀도 우선 운용이라면 VAE(오탐 0·정밀도 1.00)가 유리 "
+        "(실 TEP 1,940행 기준)."
     )
 
 # ── 종합 비교표 ───────────────────────────────────────────
@@ -127,18 +128,19 @@ else:
     pivot = pivot.rename(columns=MODEL_LABELS)
     st.dataframe(pivot.style.format("{:.2f}"), use_container_width=True)
     st.caption(
-        "IDV 1·4·8은 재구성오차가 정상과 사실상 구별되지 않아 AE 계열 원리상 미탐(0.00). "
-        "IDV 12는 부분 탐지. 한계를 그대로 표기합니다."
+        "IDV 3·18은 재구성오차가 정상과 사실상 구별되지 않아 AE 계열 원리상 미탐(0.00) — "
+        "실제 TEP에서도 잘 알려진 난탐지 결함. IDV 12는 부분 탐지. 한계를 그대로 표기합니다."
     )
 
 # ── MODEL_CARD 핵심 요약 ──────────────────────────────────
 st.subheader("모델 카드 핵심 요약")
 st.markdown(
     """
+    - **데이터**: 실제 TEP 벤치마크(Downs & Vogel, Braatz 배포판) 1,940행 — 정상 1,460 / 결함 480(IDV 10종).
     - **준지도 이상탐지**: 정상 운전만으로 시퀀스 AE 학습 → 재구성오차의 **마할라노비스 거리**로 판정.
     - **임계값**: 정상 점수 분위 `q=0.995` × 여유배수 `1.10`, 행 점수 rolling median 평활(과탐 억제).
-    - **기본 모델 VAE**: F1·ROC-AUC·PR-AUC 모두 최고, 오탐 6/671(0.9%)로 최저.
-    - **한계**: IDV 1·4·8 미탐(재구성오차 패턴이 정상과 구별 불가). 데이터 규모(885행)에 따른 조건부 결과.
+    - **기본 모델 Transformer-AE**: F1 0.85·ROC-AUC 0.92로 최고. VAE는 오탐 0(정밀도 1.00)로 정밀도 우선에 유리.
+    - **한계**: IDV 3·18 미탐(재구성오차가 정상과 구별 불가) — 실 TEP에서도 잘 알려진 난탐지 결함.
 
     상세: `src/models/MODEL_CARD.md`
     """
