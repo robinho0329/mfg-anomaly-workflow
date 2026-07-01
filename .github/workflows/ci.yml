@@ -22,7 +22,9 @@ jobs:
       - name: Install deps (TF 제외)
         run: pip install pandas numpy pyarrow scipy scikit-learn pytest
 
+      # config/src 임포트를 위해 레포 루트를 sys.path에 명시(PYTHONPATH) + python -m 실행.
       - name: Run tests
         env:
           PYTHONHASHSEED: "42"
-        run: pytest tests/ -q
+          PYTHONPATH: ${{ github.workspace }}
+        run: python -m pytest tests/ -q
