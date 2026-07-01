@@ -181,6 +181,37 @@ def render_insight(body: str) -> None:
     st.info(f"💡 {body}")
 
 
+def tep_process_dot() -> str:
+    """TEP(Tennessee Eastman Process) 공정 흐름도 — Graphviz DOT 문자열.
+
+    반응기→응축기→기액분리기→(재순환압축기·퍼지)·스트리퍼→제품 구조.
+    st.graphviz_chart(dot)로 브라우저에서 렌더(시스템 graphviz 불필요).
+    """
+    return """
+    digraph TEP {
+      rankdir=LR; bgcolor="transparent"; pad=0.2; nodesep=0.35; ranksep=0.55;
+      node [shape=box, style="rounded,filled", fontname="sans-serif", fontsize=11,
+            color="#c9d3dd", fontcolor="#1c2733", penwidth=1.2, margin="0.16,0.10"];
+      edge [color="#8b97a3", fontname="sans-serif", fontsize=9, fontcolor="#7b8a9a", arrowsize=0.8];
+
+      feed       [label="공급원료\\nA · C · D · E", fillcolor="#eaf1fb"];
+      reactor    [label="반응기\\nReactor", fillcolor="#fde4cf", color="#E67E22", penwidth=2.2];
+      condenser  [label="응축기\\nCondenser", fillcolor="#eaf1fb"];
+      separator  [label="기액분리기\\nSeparator", fillcolor="#eaf1fb"];
+      compressor [label="재순환 압축기\\nCompressor", fillcolor="#eaf1fb"];
+      stripper   [label="스트리퍼\\nStripper", fillcolor="#eaf1fb"];
+      purge      [label="퍼지\\nPurge", fillcolor="#eef1f4", fontcolor="#7b8a9a"];
+      product    [label="제품\\nG · H", fillcolor="#d7f0df", color="#27AE60", penwidth=2.2];
+
+      feed -> reactor -> condenser -> separator;
+      separator -> compressor;
+      compressor -> reactor [label="재순환", style=dashed, constraint=false];
+      separator -> purge;
+      separator -> stripper -> product;
+    }
+    """
+
+
 @st.cache_data(show_spinner=False, ttl=600)
 def load_stream():
     """stream.db(tep_stream) 원시 52변수 스트림 로드. 없으면 빈 DataFrame (배포 방어)."""

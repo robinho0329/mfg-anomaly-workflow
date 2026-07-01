@@ -15,7 +15,13 @@ for _anc in _Path(__file__).resolve().parents:
     if (_anc / "config" / "settings.py").exists() and str(_anc) not in _sys.path:
         _sys.path.insert(0, str(_anc))
 
-from _lib import dash_header, inject_css, render_footer, render_sidebar
+from _lib import (
+    dash_header,
+    inject_css,
+    render_footer,
+    render_sidebar,
+    tep_process_dot,
+)
 
 st.set_page_config(page_title="제조 공정 이상탐지 워크플로우", page_icon="🏭", layout="wide")
 inject_css()
@@ -24,6 +30,36 @@ dash_header(
     "🏭 제조 공정 이상탐지 자동화 워크플로우",
     "실제 TEP 벤치마크 · 수집 → 전처리/EDA → 딥러닝 이상탐지 → 리포트 (준지도 AE 계열)",
 )
+
+# ── TEP 공정 개요 + 구성도 ────────────────────────────────────────────
+st.subheader("🧪 Tennessee Eastman Process (TEP)란?")
+st.markdown(
+    "**TEP**는 이스트만 케미컬(Downs & Vogel, 1993)이 공개한 **가상 화학공정 시뮬레이션**으로, "
+    "공정 이상탐지 연구의 **표준 벤치마크**입니다. 기체 반응물 4종(A·C·D·E)으로 액체 제품 2종(G·H)을 "
+    "생산하며, 반응기·응축기·분리기·압축기·스트리퍼로 구성됩니다. "
+    "이 대시보드는 그 실제 벤치마크 데이터(52변수 시계열)로 이상탐지 파이프라인을 검증합니다."
+)
+
+_c_diag, _c_info = st.columns([1.5, 1])
+with _c_diag:
+    st.markdown("**공정 구성도**")
+    st.graphviz_chart(tep_process_dot(), use_container_width=True)
+    st.caption("반응기를 중심으로 응축·분리·재순환·스트리핑을 거쳐 제품(G·H) 생산. 점선=미반응물 재순환.")
+with _c_info:
+    st.markdown("**데이터 스키마 (52변수 + 라벨)**")
+    st.markdown(
+        "- **XMEAS 1~41** — 측정변수: 유량·압력·온도·액위·**조성 분석값**\n"
+        "- **XMV 1~11** — 조작변수: 밸브 개도(공급·재순환·퍼지·냉각수)\n"
+        "- **fault_id** — `0`=정상, `1~20`=결함 모드(**IDV**)\n"
+        "- **샘플링** — 3분 간격 다변량 시계열"
+    )
+    st.markdown(
+        "**결함 모드(IDV) 10종**\n"
+        "- 잘 탐지: IDV 1·2·4·6·7·8·14\n"
+        "- 부분: IDV 12 · **난탐지: IDV 3·18**"
+    )
+
+st.divider()
 
 st.markdown(
     """
