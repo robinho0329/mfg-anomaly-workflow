@@ -8,6 +8,15 @@ import json
 import pandas as pd
 import streamlit as st
 
+# ── sys.path 부트스트랩: 레포 루트(config)·대시보드 폴더(_lib) 보장 (로컬·클라우드 공통) ──
+import sys as _sys
+from pathlib import Path as _Path
+for _anc in _Path(__file__).resolve().parents:
+    if (_anc / "_lib.py").exists() and str(_anc) not in _sys.path:
+        _sys.path.insert(0, str(_anc))
+    if (_anc / "config" / "settings.py").exists() and str(_anc) not in _sys.path:
+        _sys.path.insert(0, str(_anc))
+
 from config.settings import EDA_DIR
 from _lib import dash_header, inject_css, render_footer, render_sidebar
 
