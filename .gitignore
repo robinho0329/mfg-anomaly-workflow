@@ -24,3 +24,6 @@ reports/*.pptx
 # OS/에디터
 .DS_Store
 .ipynb_checkpoints/
+
+# 발굴 산출물은 리포트에서 재생성 가능
+data/discovery/
