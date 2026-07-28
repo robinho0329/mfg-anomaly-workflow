@@ -275,6 +275,16 @@ def _spearman(x: list[float], y: list[float]) -> tuple[float, float]:
         return float("nan"), float("nan")
 
 
+def _pearson(x: list[float], y: list[float]) -> tuple[float, float]:
+    """선형 상관과 p값. scipy 미설치 시 (r, nan)으로 graceful."""
+    try:
+        from scipy.stats import pearsonr
+        r = pearsonr(x, y)
+        return float(r.statistic), float(r.pvalue)
+    except ImportError:
+        return float("nan"), float("nan")
+
+
 def _bonferroni_t(n_tests: int, df: int, alpha: float = 0.05) -> float:
     """다중비교 보정 임계 |t|. scipy 미설치 시 정규근사로 graceful."""
     try:
@@ -298,6 +308,23 @@ def repeat_summary(model: str = DEFAULT_MODEL) -> dict:
     stats = (rep.get("summary") or {}).get(model)
     if not stats:
         return {}
+    # 회차별 홀드아웃 유병률과 F1의 연관 — 인과가 아니라 함께 움직이는 정도만 본다
+    pairs = [
+        (
+            (int(o["tp"]) + int(o["fn"])) / max(
+                int(o["tp"]) + int(o["fn"]) + int(o["fp"]) + int(o["tn"]), 1
+            ),
+            float(o["f1"]),
+        )
+        for s in rep.get("per_seed", [])
+        for o in s.get("overall", [])
+        if o.get("model") == model and not o.get("degenerate")
+    ]
+    prev_link = {}
+    if len(pairs) >= 3:
+        pv = [p[0] for p in pairs]
+        r, pval = _pearson([p[0] for p in pairs], [p[1] for p in pairs])
+        prev_link = {"min": min(pv), "max": max(pv), "r": r, "p": pval, "n": len(pairs)}
     cov = (rep.get("coverage") or {}).get(model, {})
     return {
         "seeds": rep.get("seeds", []),
@@ -305,6 +332,7 @@ def repeat_summary(model: str = DEFAULT_MODEL) -> dict:
         "coverage": {int(k): v for k, v in cov.items()},
         "all_stats": rep.get("summary") or {},
         "paired": rep.get("paired") or [],
+        "prevalence_link": prev_link,
     }
 
 
@@ -555,6 +583,15 @@ def render_report(
                     "  위 단일 실행 수치는 이 분포에서 뽑힌 1회 관측이다. "
                     "성능을 인용할 때는 반복 평균±표준편차를 쓴다."
                 )
+                pl = rep.get("prevalence_link") or {}
+                if pl and pl.get("r") == pl.get("r"):  # NaN 아님
+                    r2 = pl["r"] ** 2
+                    L.append(
+                        f"- 회차별 홀드아웃 유병률은 {pl['min']:.3f}~{pl['max']:.3f}로 변동하며 "
+                        f"F1과 함께 움직인다(Pearson r {pl['r']:.2f} · p {pl['p']:.3f} · n={pl['n']}, "
+                        f"설명되는 분산 {r2 * 100:.0f}%). 나머지 {100 - r2 * 100:.0f}%는 미설명 — "
+                        f"변동의 원인으로 단정하지 않는다. _출처: `{_rel(MODELS_DIR / 'repeat_eval.json')}`_"
+                    )
                 # 모델 선정 근거 — 동일 분할 대응 비교(주변 편차는 분할 난이도 공통성분)
                 allst, paired = rep.get("all_stats") or {}, rep.get("paired") or []
                 if allst:
@@ -634,7 +671,8 @@ def render_report(
                         )
                     L.append(
                         f"  → 기본 모델 {det['model']} 유지. 임계값 무관 순위 품질(ROC-AUC)에서 "
-                        "유일하게 우위이고, 다중비교 보정 시 모든 쌍이 미검출이라 교체 근거가 없다. "
+                        "상위 그룹에 속하고(동급 모델과는 구별 불가, 하위 모델 대비는 보정 전 우위), "
+                        "다중비교 보정 시 모든 쌍이 미검출이라 교체 근거가 없다. "
                         "임계값 재보정은 다음 사이클 과제로 이관한다."
                     )
             else:
