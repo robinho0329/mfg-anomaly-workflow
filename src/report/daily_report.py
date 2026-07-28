@@ -125,22 +125,30 @@ def read_recorded_provenance(report_path: Path) -> dict | None:
         return None
 
 
-def diff_provenance(recorded: dict, current: dict) -> list[str]:
-    """기록된 지문 대비 현재 산출물의 변경점(사람이 읽는 문장 목록)."""
-    changes: list[str] = []
+def diff_provenance(recorded: dict, current: dict) -> tuple[list[str], list[str]]:
+    """기록된 지문 대비 현재 산출물 비교 → (검증불가, 낡음).
+
+    검증불가: 산출물이 지금 없어 대조 자체가 불가능한 경우. 예를 들어 CI 러너는
+        커밋되지 않은 산출물(.gitignore 대상)을 볼 수 없다 — 이건 '낡음'이 아니라
+        '판단 보류'다. 수치가 틀렸다는 근거가 없으므로 게이트를 막지 않는다.
+    낡음: 산출물이 실제로 존재하는데 내용 해시가 기록과 다른 경우. 리포트 수치가
+        더 이상 현재 상태가 아니라는 확정 근거이므로 게이트를 막는다.
+    """
+    unverifiable: list[str] = []
+    stale: list[str] = []
     for rel, now in current.items():
         was = recorded.get(rel)
         if was is None:
             continue  # 추적 대상이 나중에 추가된 경우 — 낡음 근거로 삼지 않는다
         if was.get("exists") and not now.get("exists"):
-            changes.append(f"`{rel}` — 파일이 사라짐")
+            unverifiable.append(f"`{rel}` — 지금 없어 대조 불가(미커밋 산출물일 수 있음)")
         elif not was.get("exists") and now.get("exists"):
-            changes.append(f"`{rel}` — 새로 생성됨 ({now.get('mtime')})")
+            stale.append(f"`{rel}` — 새로 생성됨 ({now.get('mtime')})")
         elif was.get("sha256_12") != now.get("sha256_12"):
-            changes.append(
+            stale.append(
                 f"`{rel}` — 내용 변경 ({was.get('mtime')} → {now.get('mtime')})"
             )
-    return changes
+    return unverifiable, stale
 
 
 def check_report(report_path: Path, current: dict) -> tuple[list[str], list[str]]:
@@ -152,7 +160,7 @@ def check_report(report_path: Path, current: dict) -> tuple[list[str], list[str]
     recorded = read_recorded_provenance(report_path)
     if recorded is None:
         return (["지문 기록이 없어 대조 불가 — 가드 도입 이전 리포트(게이트 미적용)"], [])
-    return ([], diff_provenance(recorded, current))
+    return diff_provenance(recorded, current)
 
 
 def audit_reports(current: dict) -> dict[Path, tuple[list[str], list[str]]]:
@@ -511,9 +519,10 @@ def build() -> Path:
     coverage = fault_coverage()
     milestones = milestone_progress(acc["total"])
 
-    # 생성 후 지문과 대조 — 읽는 도중 산출물이 갱신됐으면 리포트에 경고를 박는다.
+    # 생성 후 지문과 대조 — 읽는 도중 산출물이 갱신·소실됐으면 리포트에 경고를 박는다.
     prov_after = collect_provenance()
-    warnings = diff_provenance(prov_before, prov_after)
+    gone, changed = diff_provenance(prov_before, prov_after)
+    warnings = changed + gone
 
     md = render_report(
         today=today,
@@ -553,7 +562,7 @@ def check() -> int:
     for path, (warns, errors) in findings.items():
         print(f"  - {_rel(path)}")
         for w in warns:
-            print(f"      [경고] {w}")
+            print(f"      [보류] {w}")
         for e in errors:
             print(f"      [낡음] {e}")
             has_error = True
