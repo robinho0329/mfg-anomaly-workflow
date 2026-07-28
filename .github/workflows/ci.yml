@@ -28,3 +28,10 @@ jobs:
           PYTHONHASHSEED: "42"
           PYTHONPATH: ${{ github.workspace }}
         run: python -m pytest tests/ -q
+
+      # 낡음 게이트 — 산출물이 리포트보다 새로우면(지문 불일치) 머지를 차단한다.
+      # (AI_COMPANY.md 절대규칙 ⑤: 연결 안 된 것을 완료라고 보고하지 않는다)
+      - name: Staleness gate (--check)
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: python -m src.report.daily_report --check

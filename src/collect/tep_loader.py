@@ -26,12 +26,14 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from config.settings import (
     N_XMEAS,
     N_XMV,
     PROCESS_COLS,
+    RANDOM_STATE,
     RAW_DIR,
     SNAPSHOT_PREFIX,
     TEP_REAL_GLOBS,
@@ -123,8 +125,38 @@ def _coerce_schema(df: pd.DataFrame) -> pd.DataFrame:
     return df[keep].reset_index(drop=True)
 
 
+def _interleave_fault_blocks(
+    df: pd.DataFrame, seed: int = RANDOM_STATE, chunk_rows: int = 48
+) -> pd.DataFrame:
+    """정상 청크와 결함 에피소드 블록을 재생 시간축에 결정적으로 섞는다.
+
+    원본 CSV는 '정상 블록 전체 → 결함 블록 전체' 순서라, 오프셋 순차 재생 시
+    시간 분할이 사실상 정상/결함 블록 분할이 되어 홀드아웃 평가가 왜곡된다.
+    결함 에피소드(연속 동일 fault_id 구간)는 통짜로 유지하고(결함은 지속 현상),
+    정상 구간만 chunk_rows 단위로 쪼갠 뒤 블록 순서를 시드 고정 셔플한다.
+    같은 입력이면 항상 같은 순서 → 배치 오프셋 슬라이싱과 정합(재현성).
+    """
+    fault_id = df["fault_id"].to_numpy()
+    change = np.flatnonzero(np.diff(fault_id) != 0) + 1
+    starts = np.concatenate([[0], change])
+    ends = np.concatenate([change, [len(df)]])
+    blocks: list[tuple[int, int]] = []
+    for s, e in zip(starts, ends):
+        if fault_id[s] == 0:
+            for cs in range(s, e, chunk_rows):
+                blocks.append((cs, min(cs + chunk_rows, e)))
+        else:
+            blocks.append((s, e))
+    order = np.random.default_rng(seed).permutation(len(blocks))
+    idx = np.concatenate([np.arange(blocks[i][0], blocks[i][1]) for i in order])
+    return df.iloc[idx].reset_index(drop=True)
+
+
 def load_raw_tep(raw_dir: Path = RAW_DIR) -> pd.DataFrame | None:
     """raw_dir 의 실제 TEP 데이터를 프로젝트 스키마 DataFrame으로 반환.
+
+    반환 전 정상/결함 블록을 결정적으로 인터리브한다(위 함수 참조) —
+    재생 시간축이 원본 파일의 블록 순서가 아니라 대표성 있는 혼합이 되도록.
 
     Returns
     -------
@@ -150,7 +182,9 @@ def load_raw_tep(raw_dir: Path = RAW_DIR) -> pd.DataFrame | None:
     if not frames:
         return None
     combined = pd.concat(frames, ignore_index=True)
-    return combined if len(combined) else None
+    if not len(combined):
+        return None
+    return _interleave_fault_blocks(combined)
 
 
 if __name__ == "__main__":

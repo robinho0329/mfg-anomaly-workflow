@@ -1,0 +1,56 @@
+name: Daily Report
+
+# 매일 09:00 KST(00:00 UTC) — 사규(AI_COMPANY.md) §9 ①: 하루는 지문 확인으로 시작한다.
+# 이 잡은 재학습·재수집을 하지 않는다(리포트는 커밋된 산출물 로드 요약).
+# 생성된 리포트는 PR로 제출되고, **PR 머지가 사규 ⑪ '대표 승인'이다.**
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # TF 미설치(무겁다) — 모델 테스트는 skipif로 스킵되고,
+      # 리포트 생성에 필요한 로드·검정·pytest 나머지는 그대로 돈다.
+      - name: Install deps (TF 제외)
+        run: pip install pandas numpy pyarrow scipy scikit-learn pytest
+
+      - name: Generate daily report
+        env:
+          PYTHONHASHSEED: "42"
+          PYTHONPATH: ${{ github.workspace }}
+        run: python -m src.report.daily_report
+
+      # 낡음 게이트 — 지문 불일치가 있으면 여기서 실패해 PR이 만들어지지 않는다.
+      - name: Staleness gate (--check)
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: python -m src.report.daily_report --check
+
+      - name: Open report PR (대표 승인 = 머지)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: bot/daily-report
+          add-paths: reports/*.md
+          commit-message: "report: 데일리 리포트 자동 생성 (run ${{ github.run_id }})"
+          title: "데일리 리포트 — 대표 승인 대기"
+          body: |
+            자동 생성된 데일리 리포트입니다 (AI_COMPANY.md 사규 §9).
+
+            - 생성: `python -m src.report.daily_report` — 재학습·재계산 없음, 커밋된 산출물 로드 요약
+            - 낡음 게이트: `--check` 통과 상태에서 제출됨 (§0 지문표 참조)
+            - **이 PR의 머지가 사규 ⑪ '대표 승인'입니다. AI는 여기서 멈춥니다.**
+          delete-branch: true

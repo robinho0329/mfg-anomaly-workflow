@@ -1,8 +1,10 @@
 """③ 딥러닝 이상탐지 — 모델 비교 평가. (소유: mfg-model)
 
 LSTM-AE vs VAE vs Transformer-AE를 동일 데이터/전처리/점수 로직으로 학습·평가한다.
-정답은 fault_id != 0(이상=양성). 전체/결함 IDV별 precision/recall/f1 + ROC-AUC/PR-AUC를
-산출하고, ROC·PR 커브 PNG를 저장한다.
+정답은 fault_id != 0(이상=양성). 지표는 **시간 분할 홀드아웃(eval) 구간만**으로
+계산한다 — 학습·임계값에 쓰인 구간으로 채점하면 낙관 편향이 생긴다(누수).
+전체/결함 IDV별 precision/recall/f1 + ROC-AUC/PR-AUC를 산출하고, ROC·PR 커브
+PNG를 저장하며, 분할 메타(경계 시각·purge·행수)를 comparison.json에 기록한다.
 
 산출(스키마 유지, mfg-reporter 의존):
   - comparison.parquet           : 모델별 P/R/F1 + AUC + 혼동행렬
@@ -97,7 +99,7 @@ def _plot_curves(curves: dict, overall: pd.DataFrame) -> None:
     for ax in (ax1, ax2):
         ax.legend(loc="lower right", fontsize=8)
         ax.grid(alpha=0.3)
-    fig.suptitle("TEP Anomaly Detection - Model Comparison (885 rows, fault=positive)")
+    fig.suptitle("TEP Anomaly Detection - Model Comparison (holdout eval, fault=positive)")
     fig.tight_layout()
     fig.savefig(MODELS_DIR / "roc_pr_curves.png", dpi=120)
     plt.close(fig)
@@ -113,15 +115,22 @@ def run() -> pd.DataFrame:
         return pd.DataFrame()
 
     overall_rows, per_fault_rows, curves = [], [], {}
+    split_info: dict = {}
     for name in MODEL_REGISTRY:
         print(f"[compare] 학습/평가: {name} ...")
         out = fit_and_score(df, model_name=name)
         if out.empty:
             continue
-        y_true = (out["fault_id"] != 0).astype(int).to_numpy()
-        y_pred = out["is_anomaly"].to_numpy()
-        score = out["anomaly_score"].to_numpy()
-        fault_id = out["fault_id"].to_numpy()
+        split_info = out.attrs.get("split", split_info)
+        # 지표는 홀드아웃(eval) 구간만 — 적합에 쓰인 구간으로 채점하지 않는다
+        ev = out[out["split"] == "eval"]
+        if ev.empty:
+            print(f"    [경고] 홀드아웃 구간 없음(무분할 폴백) — 전 구간으로 평가")
+            ev = out
+        y_true = (ev["fault_id"] != 0).astype(int).to_numpy()
+        y_pred = ev["is_anomaly"].to_numpy()
+        score = ev["anomaly_score"].to_numpy()
+        fault_id = ev["fault_id"].to_numpy()
 
         m = _metrics_overall(y_true, y_pred, score)
         m["model"] = name
@@ -154,6 +163,7 @@ def run() -> pd.DataFrame:
     (MODELS_DIR / "comparison.json").write_text(
         json.dumps({
             "n_rows": int(len(df)),
+            "split": split_info,
             "overall": overall.to_dict(orient="records"),
             "per_fault": per_fault.to_dict(orient="records"),
             "curves": curves,

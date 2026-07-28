@@ -56,7 +56,16 @@ BACKFILL_PLAN = [
 ]
 
 # ── 모델(models) 설정 ─────────────────────────────────────
+# 기본 모델 — 탐지(detect)와 보고(daily_report·ppt)가 반드시 같은 모델을 봐야
+# 탐지 건수와 성능 지표가 한 리포트 안에서 섞이지 않는다. 여기서만 정의한다.
+DEFAULT_MODEL = "transformer_ae"
 SEQ_LEN = 20                 # 시계열 윈도우 길이(스텝)
+
+# 시간 분할 — 평가 누수 방지. 시간순 앞 TRAIN_RATIO 구간에서만
+# 스케일러·모델·임계값을 적합하고, 경계 뒤 PURGE_STEPS만큼 윈도우가 걸치는
+# 구간은 버린 뒤(중첩 누수 차단) 나머지 홀드아웃 구간에서만 지표를 계산한다.
+TRAIN_RATIO = 0.6
+PURGE_STEPS = SEQ_LEN
 AE_LATENT_DIM = 16           # 오토인코더 잠재 차원
 AE_EPOCHS = 80               # 최대 epoch (조기종료로 자동 단축)
 AE_BATCH = 64

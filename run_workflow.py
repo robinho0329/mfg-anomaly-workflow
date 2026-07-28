@@ -1,20 +1,22 @@
 """전체 워크플로우 오케스트레이터 — 4단계를 순서대로 실행.
 
-순서 의존: collect → pipeline(preprocess→eda) → model → report
-실행: python run_workflow.py [--collect-batches N] [--ppt]
+순서 의존: collect → pipeline(preprocess→eda) → model(detect→compare) → report
+실행: python run_workflow.py [--collect-batches N] [--skip-compare] [--ppt]
 """
 
 import argparse
 
 from src.collect.scheduler import collect_batch
 from src.pipeline import eda, preprocess
-from src.models import detect
+from src.models import compare, detect
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="제조 이상탐지 워크플로우 실행")
     parser.add_argument("--collect-batches", type=int, default=10,
                         help="수집 배치 횟수(정상/결함 번갈아 주입)")
+    parser.add_argument("--skip-compare", action="store_true",
+                        help="모델 비교 평가 생략(comparison.json 미갱신 — 리포트 지표가 낡을 수 있음)")
     parser.add_argument("--ppt", action="store_true", help="PPT 덱까지 생성")
     args = parser.parse_args()
 
@@ -32,6 +34,13 @@ def main() -> None:
     # ③ 딥러닝 이상탐지
     print("=== ③ 딥러닝 이상탐지 ===")
     detect.run()
+
+    # ③-b 모델 비교 평가 — comparison.json이 낡으면 리포트 지표가 낡는다
+    if args.skip_compare:
+        print("=== ③-b 모델 비교 생략(--skip-compare) — comparison.json 미갱신 ===")
+    else:
+        print("=== ③-b 모델 비교 평가 ===")
+        compare.run()
 
     # ④ 리포트
     if args.ppt:
