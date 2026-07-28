@@ -53,7 +53,7 @@ class TransformerAutoencoder:
 
         from src.models.tf_seed import enable_determinism
 
-        enable_determinism(RANDOM_STATE)
+        enable_determinism()  # 활성 시드 사용
         inp = layers.Input(shape=(self.seq_len, self.n_features))
         # 입력 임베딩 + 학습형 위치 인코딩
         x = layers.Dense(self.latent_dim)(inp)

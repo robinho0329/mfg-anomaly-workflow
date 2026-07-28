@@ -14,10 +14,25 @@ from config.settings import RANDOM_STATE
 
 _DETERMINISM_DONE = False
 
+# 현재 활성 시드 — 기본은 RANDOM_STATE. 시드 반복 평가(repeat_eval)가 매 회차마다
+# 이 값을 바꿔, 모델 초기화까지 회차별로 달라지게 한다.
+_ACTIVE_SEED = RANDOM_STATE
 
-def enable_determinism(seed: int = RANDOM_STATE) -> None:
-    """파이썬/넘파이/TF 난수 시드 + TF 연산 결정성을 일괄 고정(멱등)."""
+
+def set_active_seed(seed: int) -> None:
+    """이후 build()가 사용할 시드를 지정한다(시드 반복 평가용)."""
+    global _ACTIVE_SEED
+    _ACTIVE_SEED = int(seed)
+
+
+def enable_determinism(seed: int | None = None) -> None:
+    """파이썬/넘파이/TF 난수 시드 + TF 연산 결정성을 일괄 고정(멱등).
+
+    seed 미지정 시 활성 시드(_ACTIVE_SEED)를 쓴다 — 호출측이 시드를 하드코딩하면
+    반복 평가에서 회차마다 같은 초기화를 반복하게 되므로 기본값에 맡긴다.
+    """
     global _DETERMINISM_DONE
+    seed = _ACTIVE_SEED if seed is None else int(seed)
     os.environ.setdefault("PYTHONHASHSEED", str(seed))
     random.seed(seed)
     np.random.seed(seed)

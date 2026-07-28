@@ -48,7 +48,7 @@ class LSTMAutoencoder:
 
         from src.models.tf_seed import enable_determinism
 
-        enable_determinism(RANDOM_STATE)
+        enable_determinism()  # 활성 시드 사용
         inp = layers.Input(shape=(self.seq_len, self.n_features))
         enc = layers.LSTM(self.latent_dim, activation="tanh", dropout=AE_DROPOUT)(inp)
         dec = layers.RepeatVector(self.seq_len)(enc)

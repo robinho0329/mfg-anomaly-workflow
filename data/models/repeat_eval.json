@@ -1,0 +1,3599 @@
+{
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61
+  ],
+  "models": [
+    "lstm_ae",
+    "vae",
+    "transformer_ae"
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "overall": [
+        {
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "roc_auc": 0.8516389525993884,
+          "pr_auc": 0.8417369874839038,
+          "tp": 144,
+          "fp": 0,
+          "fn": 48,
+          "tn": 545,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.9536423841059603,
+          "recall": 0.75,
+          "f1": 0.8396501457725948,
+          "roc_auc": 0.8815271406727829,
+          "pr_auc": 0.8639891568399278,
+          "tp": 144,
+          "fp": 7,
+          "fn": 48,
+          "tn": 538,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.8797814207650273,
+          "recall": 0.8385416666666666,
+          "f1": 0.8586666666666667,
+          "roc_auc": 0.9100535168195719,
+          "pr_auc": 0.9046885948804366,
+          "tp": 161,
+          "fp": 22,
+          "fn": 31,
+          "tn": 523,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 545,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 545,
+          "detected": 7,
+          "recall": 0.012844036697247707,
+          "model": "vae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 17,
+          "recall": 0.3541666666666667,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 545,
+          "detected": 22,
+          "recall": 0.04036697247706422,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        3,
+        4,
+        7,
+        14
+      ]
+    },
+    {
+      "seed": 43,
+      "overall": [
+        {
+          "precision": 0.8378378378378378,
+          "recall": 0.4305555555555556,
+          "f1": 0.5688073394495413,
+          "roc_auc": 0.7206002904253326,
+          "pr_auc": 0.6197410352769701,
+          "tp": 62,
+          "fp": 12,
+          "fn": 82,
+          "tn": 581,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.5190839694656488,
+          "recall": 0.4722222222222222,
+          "f1": 0.49454545454545457,
+          "roc_auc": 0.7420777121978639,
+          "pr_auc": 0.6158274359291994,
+          "tp": 68,
+          "fp": 63,
+          "fn": 76,
+          "tn": 530,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.5775862068965517,
+          "recall": 0.4652777777777778,
+          "f1": 0.5153846153846153,
+          "roc_auc": 0.7640469833239648,
+          "pr_auc": 0.6490886760645458,
+          "tp": 67,
+          "fp": 49,
+          "fn": 77,
+          "tn": 544,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 24,
+          "recall": 0.5,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 12,
+          "recall": 0.02023608768971332,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 30,
+          "recall": 0.625,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 63,
+          "recall": 0.10623946037099494,
+          "model": "vae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 29,
+          "recall": 0.6041666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 49,
+          "recall": 0.08263069139966273,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        2,
+        3,
+        12
+      ]
+    },
+    {
+      "seed": 44,
+      "overall": [
+        {
+          "precision": 0.8541666666666666,
+          "recall": 0.5694444444444444,
+          "f1": 0.6833333333333333,
+          "roc_auc": 0.7326271781899943,
+          "pr_auc": 0.682739887033916,
+          "tp": 82,
+          "fp": 14,
+          "fn": 62,
+          "tn": 579,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.9010989010989011,
+          "recall": 0.5694444444444444,
+          "f1": 0.6978723404255319,
+          "roc_auc": 0.7384356848416713,
+          "pr_auc": 0.6908562278687878,
+          "tp": 82,
+          "fp": 9,
+          "fn": 62,
+          "tn": 584,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 1.0,
+          "recall": 0.5694444444444444,
+          "f1": 0.7256637168141593,
+          "roc_auc": 0.7817184279557804,
+          "pr_auc": 0.7097079189951364,
+          "tp": 82,
+          "fp": 0,
+          "fn": 62,
+          "tn": 593,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 14,
+          "recall": 0.023608768971332208,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 9,
+          "recall": 0.01517706576728499,
+          "model": "vae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        3,
+        4,
+        8
+      ]
+    },
+    {
+      "seed": 45,
+      "overall": [
+        {
+          "precision": 0.9767441860465116,
+          "recall": 0.8860759493670886,
+          "f1": 0.9292035398230089,
+          "roc_auc": 0.9778902953586497,
+          "pr_auc": 0.973510983305898,
+          "tp": 210,
+          "fp": 5,
+          "fn": 27,
+          "tn": 495,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.9372197309417041,
+          "recall": 0.8818565400843882,
+          "f1": 0.908695652173913,
+          "roc_auc": 0.9587932489451477,
+          "pr_auc": 0.9552752663379016,
+          "tp": 209,
+          "fp": 14,
+          "fn": 28,
+          "tn": 486,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.8086642599277978,
+          "recall": 0.9451476793248945,
+          "f1": 0.8715953307392996,
+          "roc_auc": 0.9655021097046413,
+          "pr_auc": 0.9604205446889659,
+          "tp": 224,
+          "fp": 53,
+          "fn": 13,
+          "tn": 447,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 31,
+          "recall": 0.6458333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 45,
+          "detected": 45,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 500,
+          "detected": 5,
+          "recall": 0.01,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 30,
+          "recall": 0.625,
+          "model": "vae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 45,
+          "detected": 45,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 500,
+          "detected": 14,
+          "recall": 0.028,
+          "model": "vae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 39,
+          "recall": 0.8125,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 44,
+          "recall": 0.9166666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 45,
+          "detected": 45,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 500,
+          "detected": 53,
+          "recall": 0.106,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        2,
+        4,
+        7,
+        12,
+        14
+      ]
+    },
+    {
+      "seed": 46,
+      "overall": [
+        {
+          "precision": 0.5963302752293578,
+          "recall": 0.9027777777777778,
+          "f1": 0.7182320441988951,
+          "roc_auc": 0.9426995503091624,
+          "pr_auc": 0.9100289591763361,
+          "tp": 130,
+          "fp": 88,
+          "fn": 14,
+          "tn": 505,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.5338645418326693,
+          "recall": 0.9305555555555556,
+          "f1": 0.6784810126582278,
+          "roc_auc": 0.9435192992317781,
+          "pr_auc": 0.9151321188929411,
+          "tp": 134,
+          "fp": 117,
+          "fn": 10,
+          "tn": 476,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.5929203539823009,
+          "recall": 0.9305555555555556,
+          "f1": 0.7243243243243244,
+          "roc_auc": 0.9397133220910625,
+          "pr_auc": 0.9226063368218134,
+          "tp": 134,
+          "fp": 92,
+          "fn": 10,
+          "tn": 501,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 88,
+          "recall": 0.14839797639123103,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 117,
+          "recall": 0.1973018549747049,
+          "model": "vae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 92,
+          "recall": 0.1551433389544688,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        4,
+        12,
+        14
+      ]
+    },
+    {
+      "seed": 47,
+      "overall": [
+        {
+          "precision": 0.7096774193548387,
+          "recall": 0.9166666666666666,
+          "f1": 0.8,
+          "roc_auc": 0.9546093310848793,
+          "pr_auc": 0.944824512486385,
+          "tp": 132,
+          "fp": 54,
+          "fn": 12,
+          "tn": 539,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.6875,
+          "recall": 0.9166666666666666,
+          "f1": 0.7857142857142857,
+          "roc_auc": 0.9519275810380363,
+          "pr_auc": 0.9380922044805412,
+          "tp": 132,
+          "fp": 60,
+          "fn": 12,
+          "tn": 533,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.5690376569037657,
+          "recall": 0.9444444444444444,
+          "f1": 0.7101827676240209,
+          "roc_auc": 0.970887202548248,
+          "pr_auc": 0.9559180154900186,
+          "tp": 136,
+          "fp": 103,
+          "fn": 8,
+          "tn": 490,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 54,
+          "recall": 0.09106239460370995,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "vae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 60,
+          "recall": 0.10118043844856661,
+          "model": "vae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 42,
+          "recall": 0.875,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 103,
+          "recall": 0.1736930860033727,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        1,
+        2,
+        6
+      ]
+    },
+    {
+      "seed": 48,
+      "overall": [
+        {
+          "precision": 0.9797979797979798,
+          "recall": 0.8083333333333333,
+          "f1": 0.8858447488584474,
+          "roc_auc": 0.9271252515090543,
+          "pr_auc": 0.9315273496622939,
+          "tp": 194,
+          "fp": 4,
+          "fn": 46,
+          "tn": 493,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.9796954314720813,
+          "recall": 0.8041666666666667,
+          "f1": 0.8832951945080092,
+          "roc_auc": 0.9216716968477532,
+          "pr_auc": 0.9251791746304439,
+          "tp": 193,
+          "fp": 4,
+          "fn": 47,
+          "tn": 493,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.9336283185840708,
+          "recall": 0.8791666666666667,
+          "f1": 0.9055793991416309,
+          "roc_auc": 0.9445590207914152,
+          "pr_auc": 0.9442293318068896,
+          "tp": 211,
+          "fp": 15,
+          "fn": 29,
+          "tn": 482,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 36,
+          "recall": 0.75,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 26,
+          "recall": 0.5416666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 497,
+          "detected": 4,
+          "recall": 0.008048289738430584,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "vae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 27,
+          "recall": 0.5625,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 497,
+          "detected": 4,
+          "recall": 0.008048289738430584,
+          "model": "vae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 45,
+          "recall": 0.9375,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 497,
+          "detected": 15,
+          "recall": 0.030181086519114688,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        1,
+        2,
+        4,
+        8,
+        12
+      ]
+    },
+    {
+      "seed": 49,
+      "overall": [
+        {
+          "precision": 0.8983957219251337,
+          "recall": 0.875,
+          "f1": 0.8865435356200527,
+          "roc_auc": 0.9252293577981652,
+          "pr_auc": 0.927800029458629,
+          "tp": 168,
+          "fp": 19,
+          "fn": 24,
+          "tn": 526,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.8155339805825242,
+          "recall": 0.875,
+          "f1": 0.8442211055276382,
+          "roc_auc": 0.9246416284403669,
+          "pr_auc": 0.925744298183759,
+          "tp": 168,
+          "fp": 38,
+          "fn": 24,
+          "tn": 507,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.7934272300469484,
+          "recall": 0.8802083333333334,
+          "f1": 0.8345679012345679,
+          "roc_auc": 0.9332998853211008,
+          "pr_auc": 0.9322324189289282,
+          "tp": 169,
+          "fp": 44,
+          "fn": 23,
+          "tn": 501,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 545,
+          "detected": 19,
+          "recall": 0.03486238532110092,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 545,
+          "detected": 38,
+          "recall": 0.06972477064220184,
+          "model": "vae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 35,
+          "recall": 0.7291666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 545,
+          "detected": 44,
+          "recall": 0.08073394495412844,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        2,
+        4,
+        6,
+        8
+      ]
+    },
+    {
+      "seed": 50,
+      "overall": [
+        {
+          "precision": 0.797979797979798,
+          "recall": 0.6666666666666666,
+          "f1": 0.7264367816091954,
+          "roc_auc": 0.8264810126582278,
+          "pr_auc": 0.8209003055233073,
+          "tp": 158,
+          "fp": 40,
+          "fn": 79,
+          "tn": 460,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.7938144329896907,
+          "recall": 0.6497890295358649,
+          "f1": 0.7146171693735499,
+          "roc_auc": 0.8224978902953587,
+          "pr_auc": 0.8107746248779542,
+          "tp": 154,
+          "fp": 40,
+          "fn": 83,
+          "tn": 460,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.7453703703703703,
+          "recall": 0.679324894514768,
+          "f1": 0.7108167770419426,
+          "roc_auc": 0.8095696202531647,
+          "pr_auc": 0.8097035232241345,
+          "tp": 161,
+          "fp": 55,
+          "fn": 76,
+          "tn": 445,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 45,
+          "detected": 38,
+          "recall": 0.8444444444444444,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 500,
+          "detected": 40,
+          "recall": 0.08,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 35,
+          "recall": 0.7291666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 45,
+          "detected": 33,
+          "recall": 0.7333333333333333,
+          "model": "vae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 500,
+          "detected": 40,
+          "recall": 0.08,
+          "model": "vae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 35,
+          "recall": 0.7291666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 45,
+          "detected": 39,
+          "recall": 0.8666666666666667,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 1,
+          "recall": 0.020833333333333332,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 500,
+          "detected": 55,
+          "recall": 0.11,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        2,
+        4,
+        8,
+        12,
+        18
+      ]
+    },
+    {
+      "seed": 51,
+      "overall": [
+        {
+          "precision": 1.0,
+          "recall": 0.25,
+          "f1": 0.4,
+          "roc_auc": 0.702726859074363,
+          "pr_auc": 0.5294713131992181,
+          "tp": 24,
+          "fp": 0,
+          "fn": 72,
+          "tn": 641,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.9,
+          "recall": 0.28125,
+          "f1": 0.42857142857142855,
+          "roc_auc": 0.7393802002080083,
+          "pr_auc": 0.5346344635340141,
+          "tp": 27,
+          "fp": 3,
+          "fn": 69,
+          "tn": 638,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.6521739130434783,
+          "recall": 0.3125,
+          "f1": 0.4225352112676056,
+          "roc_auc": 0.6835429667186687,
+          "pr_auc": 0.4725031211816144,
+          "tp": 30,
+          "fp": 16,
+          "fn": 66,
+          "tn": 625,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 24,
+          "recall": 0.5,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 641,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 27,
+          "recall": 0.5625,
+          "model": "vae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 641,
+          "detected": 3,
+          "recall": 0.0046801872074883,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 30,
+          "recall": 0.625,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 641,
+          "detected": 16,
+          "recall": 0.0249609984399376,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        12,
+        18
+      ]
+    },
+    {
+      "seed": 52,
+      "overall": [
+        {
+          "precision": 0.8598726114649682,
+          "recall": 0.569620253164557,
+          "f1": 0.6852791878172588,
+          "roc_auc": 0.7452911392405064,
+          "pr_auc": 0.7532377183636196,
+          "tp": 135,
+          "fp": 22,
+          "fn": 102,
+          "tn": 478,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.875,
+          "recall": 0.5316455696202531,
+          "f1": 0.6614173228346457,
+          "roc_auc": 0.7681181434599156,
+          "pr_auc": 0.74966143197846,
+          "tp": 126,
+          "fp": 18,
+          "fn": 111,
+          "tn": 482,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.8323353293413174,
+          "recall": 0.5864978902953587,
+          "f1": 0.6881188118811881,
+          "roc_auc": 0.7739493670886075,
+          "pr_auc": 0.7766194173139949,
+          "tp": 139,
+          "fp": 28,
+          "fn": 98,
+          "tn": 472,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 3,
+          "n_rows": 45,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 35,
+          "recall": 0.7291666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 4,
+          "recall": 0.08333333333333333,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 500,
+          "detected": 22,
+          "recall": 0.044,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 45,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 30,
+          "recall": 0.625,
+          "model": "vae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 500,
+          "detected": 18,
+          "recall": 0.036,
+          "model": "vae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 45,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 39,
+          "recall": 0.8125,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 4,
+          "recall": 0.08333333333333333,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 500,
+          "detected": 28,
+          "recall": 0.056,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        3,
+        4,
+        12,
+        14,
+        18
+      ]
+    },
+    {
+      "seed": 53,
+      "overall": [
+        {
+          "precision": 0.9880952380952381,
+          "recall": 0.6916666666666667,
+          "f1": 0.8137254901960784,
+          "roc_auc": 0.7921738765928907,
+          "pr_auc": 0.8210040643744474,
+          "tp": 166,
+          "fp": 2,
+          "fn": 74,
+          "tn": 495,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.907103825136612,
+          "recall": 0.6916666666666667,
+          "f1": 0.7848699763593381,
+          "roc_auc": 0.834075285043595,
+          "pr_auc": 0.8377039729104242,
+          "tp": 166,
+          "fp": 17,
+          "fn": 74,
+          "tn": 480,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.8527918781725888,
+          "recall": 0.7,
+          "f1": 0.7688787185354691,
+          "roc_auc": 0.827359993293092,
+          "pr_auc": 0.8359807341083635,
+          "tp": 168,
+          "fp": 29,
+          "fn": 72,
+          "tn": 468,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 497,
+          "detected": 2,
+          "recall": 0.004024144869215292,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "vae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 497,
+          "detected": 17,
+          "recall": 0.03420523138832998,
+          "model": "vae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 36,
+          "recall": 0.75,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 497,
+          "detected": 29,
+          "recall": 0.05835010060362173,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        1,
+        2,
+        3,
+        6,
+        8
+      ]
+    },
+    {
+      "seed": 54,
+      "overall": [
+        {
+          "precision": 0.7155963302752294,
+          "recall": 0.5416666666666666,
+          "f1": 0.616600790513834,
+          "roc_auc": 0.7316083473861721,
+          "pr_auc": 0.6704731042066326,
+          "tp": 78,
+          "fp": 31,
+          "fn": 66,
+          "tn": 562,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.5131578947368421,
+          "recall": 0.5416666666666666,
+          "f1": 0.527027027027027,
+          "roc_auc": 0.7284054712385235,
+          "pr_auc": 0.6550502410174766,
+          "tp": 78,
+          "fp": 74,
+          "fn": 66,
+          "tn": 519,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.5282051282051282,
+          "recall": 0.7152777777777778,
+          "f1": 0.6076696165191741,
+          "roc_auc": 0.8420695147086379,
+          "pr_auc": 0.7637176644352451,
+          "tp": 103,
+          "fp": 92,
+          "fn": 41,
+          "tn": 501,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 30,
+          "recall": 0.625,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 31,
+          "recall": 0.05227655986509275,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 30,
+          "recall": 0.625,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 74,
+          "recall": 0.12478920741989882,
+          "model": "vae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 22,
+          "recall": 0.4583333333333333,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 33,
+          "recall": 0.6875,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 92,
+          "recall": 0.1551433389544688,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        3,
+        7,
+        12
+      ]
+    },
+    {
+      "seed": 55,
+      "overall": [
+        {
+          "precision": 0.850828729281768,
+          "recall": 0.5403508771929825,
+          "f1": 0.6609442060085837,
+          "roc_auc": 0.7191779226828132,
+          "pr_auc": 0.7563694532180472,
+          "tp": 154,
+          "fp": 27,
+          "fn": 131,
+          "tn": 425,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.8085106382978723,
+          "recall": 0.5333333333333333,
+          "f1": 0.642706131078224,
+          "roc_auc": 0.7568040676913522,
+          "pr_auc": 0.769992726668792,
+          "tp": 152,
+          "fp": 36,
+          "fn": 133,
+          "tn": 416,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.7235023041474654,
+          "recall": 0.5508771929824562,
+          "f1": 0.6254980079681275,
+          "roc_auc": 0.7016728768824716,
+          "pr_auc": 0.7422092538543283,
+          "tp": 157,
+          "fp": 60,
+          "fn": 128,
+          "tn": 392,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 37,
+          "recall": 0.7708333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 45,
+          "detected": 31,
+          "recall": 0.6888888888888889,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 452,
+          "detected": 27,
+          "recall": 0.059734513274336286,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 45,
+          "detected": 32,
+          "recall": 0.7111111111111111,
+          "model": "vae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 452,
+          "detected": 36,
+          "recall": 0.07964601769911504,
+          "model": "vae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 37,
+          "recall": 0.7708333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 45,
+          "detected": 34,
+          "recall": 0.7555555555555555,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 452,
+          "detected": 60,
+          "recall": 0.13274336283185842,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        2,
+        3,
+        8,
+        12,
+        14,
+        18
+      ]
+    },
+    {
+      "seed": 56,
+      "overall": [
+        {
+          "precision": 0.9456066945606695,
+          "recall": 0.6786786786786787,
+          "f1": 0.7902097902097902,
+          "roc_auc": 0.802983676746053,
+          "pr_auc": 0.8608807207257857,
+          "tp": 226,
+          "fp": 13,
+          "fn": 107,
+          "tn": 391,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.9911504424778761,
+          "recall": 0.6726726726726727,
+          "f1": 0.8014311270125224,
+          "roc_auc": 0.8344891921624595,
+          "pr_auc": 0.8730573721550672,
+          "tp": 224,
+          "fp": 2,
+          "fn": 109,
+          "tn": 402,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.8428571428571429,
+          "recall": 0.7087087087087087,
+          "f1": 0.7699836867862969,
+          "roc_auc": 0.8318095323045818,
+          "pr_auc": 0.8722153932826581,
+          "tp": 236,
+          "fp": 44,
+          "fn": 97,
+          "tn": 360,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 39,
+          "recall": 0.8125,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 45,
+          "detected": 45,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 404,
+          "detected": 13,
+          "recall": 0.03217821782178218,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 45,
+          "recall": 0.9375,
+          "model": "vae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 38,
+          "recall": 0.7916666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 45,
+          "detected": 45,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 404,
+          "detected": 2,
+          "recall": 0.0049504950495049506,
+          "model": "vae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 2,
+          "n_rows": 48,
+          "detected": 42,
+          "recall": 0.875,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 4,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 45,
+          "detected": 45,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 7,
+          "recall": 0.14583333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 404,
+          "detected": 44,
+          "recall": 0.10891089108910891,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        14,
+        18
+      ]
+    },
+    {
+      "seed": 57,
+      "overall": [
+        {
+          "precision": 0.827906976744186,
+          "recall": 0.8516746411483254,
+          "f1": 0.839622641509434,
+          "roc_auc": 0.9234948165869218,
+          "pr_auc": 0.9226078878681468,
+          "tp": 178,
+          "fp": 37,
+          "fn": 31,
+          "tn": 491,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.8169014084507042,
+          "recall": 0.8325358851674641,
+          "f1": 0.8246445497630331,
+          "roc_auc": 0.9160323328983615,
+          "pr_auc": 0.9134265096555017,
+          "tp": 174,
+          "fp": 39,
+          "fn": 35,
+          "tn": 489,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.7327935222672065,
+          "recall": 0.8660287081339713,
+          "f1": 0.793859649122807,
+          "roc_auc": 0.9265985210961286,
+          "pr_auc": 0.9154866277781158,
+          "tp": 181,
+          "fp": 66,
+          "fn": 28,
+          "tn": 462,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 17,
+          "detected": 17,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 35,
+          "recall": 0.7291666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 32,
+          "recall": 0.6666666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 528,
+          "detected": 37,
+          "recall": 0.07007575757575757,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 45,
+          "recall": 0.9375,
+          "model": "vae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 17,
+          "detected": 17,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 30,
+          "recall": 0.625,
+          "model": "vae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 528,
+          "detected": 39,
+          "recall": 0.07386363636363637,
+          "model": "vae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 6,
+          "n_rows": 17,
+          "detected": 17,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 36,
+          "recall": 0.75,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 528,
+          "detected": 66,
+          "recall": 0.125,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        1,
+        6,
+        8,
+        12,
+        14
+      ]
+    },
+    {
+      "seed": 58,
+      "overall": [
+        {
+          "precision": 0.8547008547008547,
+          "recall": 0.6944444444444444,
+          "f1": 0.7662835249042146,
+          "roc_auc": 0.8320802885516209,
+          "pr_auc": 0.7969445700002802,
+          "tp": 100,
+          "fp": 17,
+          "fn": 44,
+          "tn": 576,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.989247311827957,
+          "recall": 0.6388888888888888,
+          "f1": 0.7763713080168776,
+          "roc_auc": 0.8441598744613077,
+          "pr_auc": 0.7852066010238753,
+          "tp": 92,
+          "fp": 1,
+          "fn": 52,
+          "tn": 592,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.6643835616438356,
+          "recall": 0.6736111111111112,
+          "f1": 0.6689655172413793,
+          "roc_auc": 0.8647531384673036,
+          "pr_auc": 0.7898037089964536,
+          "tp": 97,
+          "fp": 49,
+          "fn": 47,
+          "tn": 544,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 6,
+          "recall": 0.125,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 17,
+          "recall": 0.02866779089376054,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 44,
+          "recall": 0.9166666666666666,
+          "model": "vae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 1,
+          "recall": 0.0016863406408094434,
+          "model": "vae"
+        },
+        {
+          "fault_id": 1,
+          "n_rows": 48,
+          "detected": 46,
+          "recall": 0.9583333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 7,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 3,
+          "recall": 0.0625,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 593,
+          "detected": 49,
+          "recall": 0.08263069139966273,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        1,
+        7,
+        18
+      ]
+    },
+    {
+      "seed": 59,
+      "overall": [
+        {
+          "precision": 0.9154929577464789,
+          "recall": 0.40372670807453415,
+          "f1": 0.5603448275862069,
+          "roc_auc": 0.6759726535541752,
+          "pr_auc": 0.604103317500841,
+          "tp": 65,
+          "fp": 6,
+          "fn": 96,
+          "tn": 570,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.8441558441558441,
+          "recall": 0.40372670807453415,
+          "f1": 0.5462184873949579,
+          "roc_auc": 0.7158870341614907,
+          "pr_auc": 0.6103072472167207,
+          "tp": 65,
+          "fp": 12,
+          "fn": 96,
+          "tn": 564,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.9285714285714286,
+          "recall": 0.40372670807453415,
+          "f1": 0.5627705627705628,
+          "roc_auc": 0.7053787094547963,
+          "pr_auc": 0.6022264712710207,
+          "tp": 65,
+          "fp": 5,
+          "fn": 96,
+          "tn": 571,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 17,
+          "detected": 17,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 576,
+          "detected": 6,
+          "recall": 0.010416666666666666,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 17,
+          "detected": 17,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 576,
+          "detected": 12,
+          "recall": 0.020833333333333332,
+          "model": "vae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 12,
+          "n_rows": 17,
+          "detected": 17,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 576,
+          "detected": 5,
+          "recall": 0.008680555555555556,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        3,
+        12,
+        14,
+        18
+      ]
+    },
+    {
+      "seed": 60,
+      "overall": [
+        {
+          "precision": 0.8367346938775511,
+          "recall": 0.4270833333333333,
+          "f1": 0.5655172413793104,
+          "roc_auc": 0.7218415519877676,
+          "pr_auc": 0.6547984916699967,
+          "tp": 82,
+          "fp": 16,
+          "fn": 110,
+          "tn": 529,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.8541666666666666,
+          "recall": 0.4270833333333333,
+          "f1": 0.5694444444444444,
+          "roc_auc": 0.7117068042813455,
+          "pr_auc": 0.6460056056025055,
+          "tp": 82,
+          "fp": 14,
+          "fn": 110,
+          "tn": 531,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": false
+        },
+        {
+          "precision": 0.7777777777777778,
+          "recall": 0.4739583333333333,
+          "f1": 0.5889967637540453,
+          "roc_auc": 0.7037461773700305,
+          "pr_auc": 0.6499584305267052,
+          "tp": 91,
+          "fp": 26,
+          "fn": 101,
+          "tn": 519,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": false
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 545,
+          "detected": 16,
+          "recall": 0.029357798165137616,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 34,
+          "recall": 0.7083333333333334,
+          "model": "vae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 545,
+          "detected": 14,
+          "recall": 0.025688073394495414,
+          "model": "vae"
+        },
+        {
+          "fault_id": 3,
+          "n_rows": 48,
+          "detected": 0,
+          "recall": 0.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 8,
+          "n_rows": 48,
+          "detected": 37,
+          "recall": 0.7708333333333334,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 14,
+          "n_rows": 48,
+          "detected": 48,
+          "recall": 1.0,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 18,
+          "n_rows": 48,
+          "detected": 6,
+          "recall": 0.125,
+          "model": "transformer_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 545,
+          "detected": 26,
+          "recall": 0.047706422018348627,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": [
+        3,
+        8,
+        14,
+        18
+      ]
+    },
+    {
+      "seed": 61,
+      "overall": [
+        {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "roc_auc": NaN,
+          "pr_auc": NaN,
+          "tp": 0,
+          "fp": 54,
+          "fn": 0,
+          "tn": 683,
+          "model": "lstm_ae",
+          "eval_rows": 737,
+          "degenerate": true
+        },
+        {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "roc_auc": NaN,
+          "pr_auc": NaN,
+          "tp": 0,
+          "fp": 25,
+          "fn": 0,
+          "tn": 712,
+          "model": "vae",
+          "eval_rows": 737,
+          "degenerate": true
+        },
+        {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "roc_auc": NaN,
+          "pr_auc": NaN,
+          "tp": 0,
+          "fp": 33,
+          "fn": 0,
+          "tn": 704,
+          "model": "transformer_ae",
+          "eval_rows": 737,
+          "degenerate": true
+        }
+      ],
+      "per_fault": [
+        {
+          "fault_id": 0,
+          "n_rows": 737,
+          "detected": 54,
+          "recall": 0.07327001356852103,
+          "model": "lstm_ae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 737,
+          "detected": 25,
+          "recall": 0.033921302578018994,
+          "model": "vae"
+        },
+        {
+          "fault_id": 0,
+          "n_rows": 737,
+          "detected": 33,
+          "recall": 0.04477611940298507,
+          "model": "transformer_ae"
+        }
+      ],
+      "eval_modes": []
+    }
+  ],
+  "summary": {
+    "lstm_ae": {
+      "n_runs": 19,
+      "n_excluded": 1,
+      "f1_mean": 0.7238985200084233,
+      "f1_std": 0.13853996707632676,
+      "f1_min": 0.4,
+      "f1_max": 0.9292035398230089,
+      "roc_auc_mean": 0.8161185448597967,
+      "roc_auc_std": 0.09959273190135515,
+      "roc_auc_min": 0.6759726535541752,
+      "roc_auc_max": 0.9778902953586497,
+      "pr_auc_mean": 0.7906684573965608,
+      "pr_auc_std": 0.13255782569972305,
+      "pr_auc_min": 0.5294713131992181,
+      "pr_auc_max": 0.973510983305898,
+      "precision_mean": 0.8655665774518456,
+      "precision_std": 0.10901293769490912,
+      "precision_min": 0.5963302752293578,
+      "precision_max": 1.0,
+      "recall_mean": 0.6554964559569327,
+      "recall_std": 0.19387162291928714,
+      "recall_min": 0.25,
+      "recall_max": 0.9166666666666666
+    },
+    "vae": {
+      "n_runs": 19,
+      "n_excluded": 1,
+      "f1_mean": 0.7057786401685108,
+      "f1_std": 0.1404310942671751,
+      "f1_min": 0.42857142857142855,
+      "f1_max": 0.908695652173913,
+      "roc_auc_mean": 0.8281131730587957,
+      "roc_auc_std": 0.08907977780117607,
+      "roc_auc_min": 0.7117068042813455,
+      "roc_auc_max": 0.9587932489451477,
+      "pr_auc_mean": 0.7903114042002259,
+      "pr_auc_std": 0.1313562852049262,
+      "pr_auc_min": 0.5346344635340141,
+      "pr_auc_max": 0.9552752663379016,
+      "precision_mean": 0.8221498633810292,
+      "precision_std": 0.15370827140412233,
+      "precision_min": 0.5131578947368421,
+      "precision_max": 0.9911504424778761,
+      "recall_mean": 0.6528510973473485,
+      "recall_std": 0.18963107149412328,
+      "recall_min": 0.28125,
+      "recall_max": 0.9305555555555556
+    },
+    "transformer_ae": {
+      "n_runs": 19,
+      "n_excluded": 1,
+      "f1_mean": 0.7028451602535728,
+      "f1_std": 0.12740208161425912,
+      "f1_min": 0.4225352112676056,
+      "f1_max": 0.9055793991416309,
+      "roc_auc_mean": 0.8358016255891193,
+      "roc_auc_std": 0.09722073536316772,
+      "roc_auc_min": 0.6835429667186687,
+      "roc_auc_max": 0.970887202548248,
+      "pr_auc_mean": 0.8004903254552299,
+      "pr_auc_std": 0.1373106501749087,
+      "pr_auc_min": 0.4725031211816144,
+      "pr_auc_max": 0.9604205446889659,
+      "precision_mean": 0.7597793580791685,
+      "precision_std": 0.13528993741272244,
+      "precision_min": 0.5282051282051282,
+      "precision_max": 1.0,
+      "recall_mean": 0.6906998891129369,
+      "recall_std": 0.19442503533592262,
+      "recall_min": 0.3125,
+      "recall_max": 0.9451476793248945
+    }
+  },
+  "coverage": {
+    "lstm_ae": {
+      "1": {
+        "n_seeds": 6,
+        "recall_mean": 0.9583333333333334,
+        "recall_std": 0.0,
+        "recall_min": 0.9583333333333334,
+        "n_zero": 0
+      },
+      "2": {
+        "n_seeds": 9,
+        "recall_mean": 0.7939814814814814,
+        "recall_std": 0.006944444444444457,
+        "recall_min": 0.7916666666666666,
+        "n_zero": 0
+      },
+      "3": {
+        "n_seeds": 10,
+        "recall_mean": 0.0,
+        "recall_std": 0.0,
+        "recall_min": 0.0,
+        "n_zero": 10
+      },
+      "4": {
+        "n_seeds": 9,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "6": {
+        "n_seeds": 5,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "7": {
+        "n_seeds": 4,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "8": {
+        "n_seeds": 8,
+        "recall_mean": 0.7239583333333334,
+        "recall_std": 0.02427009885461322,
+        "recall_min": 0.7083333333333334,
+        "n_zero": 0
+      },
+      "12": {
+        "n_seeds": 11,
+        "recall_mean": 0.6772727272727272,
+        "recall_std": 0.14864910304518883,
+        "recall_min": 0.5,
+        "n_zero": 0
+      },
+      "14": {
+        "n_seeds": 9,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "18": {
+        "n_seeds": 8,
+        "recall_mean": 0.026041666666666664,
+        "recall_std": 0.0494889557985592,
+        "recall_min": 0.0,
+        "n_zero": 6
+      }
+    },
+    "vae": {
+      "1": {
+        "n_seeds": 6,
+        "recall_mean": 0.9444444444444445,
+        "recall_std": 0.017010345435994324,
+        "recall_min": 0.9166666666666666,
+        "n_zero": 0
+      },
+      "2": {
+        "n_seeds": 9,
+        "recall_mean": 0.7916666666666666,
+        "recall_std": 0.0,
+        "recall_min": 0.7916666666666666,
+        "n_zero": 0
+      },
+      "3": {
+        "n_seeds": 10,
+        "recall_mean": 0.0,
+        "recall_std": 0.0,
+        "recall_min": 0.0,
+        "n_zero": 10
+      },
+      "4": {
+        "n_seeds": 9,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "6": {
+        "n_seeds": 5,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "7": {
+        "n_seeds": 4,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "8": {
+        "n_seeds": 8,
+        "recall_mean": 0.7109375,
+        "recall_std": 0.007365695637359844,
+        "recall_min": 0.7083333333333334,
+        "n_zero": 0
+      },
+      "12": {
+        "n_seeds": 11,
+        "recall_mean": 0.6805555555555555,
+        "recall_std": 0.1270495553167064,
+        "recall_min": 0.5625,
+        "n_zero": 0
+      },
+      "14": {
+        "n_seeds": 9,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "18": {
+        "n_seeds": 8,
+        "recall_mean": 0.0,
+        "recall_std": 0.0,
+        "recall_min": 0.0,
+        "n_zero": 8
+      }
+    },
+    "transformer_ae": {
+      "1": {
+        "n_seeds": 6,
+        "recall_mean": 0.9583333333333334,
+        "recall_std": 0.0,
+        "recall_min": 0.9583333333333334,
+        "n_zero": 0
+      },
+      "2": {
+        "n_seeds": 9,
+        "recall_mean": 0.8125,
+        "recall_std": 0.03608439182435163,
+        "recall_min": 0.7916666666666666,
+        "n_zero": 0
+      },
+      "3": {
+        "n_seeds": 10,
+        "recall_mean": 0.08125,
+        "recall_std": 0.17304072970200532,
+        "recall_min": 0.0,
+        "n_zero": 8
+      },
+      "4": {
+        "n_seeds": 9,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "6": {
+        "n_seeds": 5,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "7": {
+        "n_seeds": 4,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "8": {
+        "n_seeds": 8,
+        "recall_mean": 0.7395833333333334,
+        "recall_std": 0.02490059602779987,
+        "recall_min": 0.7083333333333334,
+        "n_zero": 0
+      },
+      "12": {
+        "n_seeds": 11,
+        "recall_mean": 0.7914141414141415,
+        "recall_std": 0.12976387949656004,
+        "recall_min": 0.6041666666666666,
+        "n_zero": 0
+      },
+      "14": {
+        "n_seeds": 9,
+        "recall_mean": 1.0,
+        "recall_std": 0.0,
+        "recall_min": 1.0,
+        "n_zero": 0
+      },
+      "18": {
+        "n_seeds": 8,
+        "recall_mean": 0.0546875,
+        "recall_std": 0.058859763218946745,
+        "recall_min": 0.0,
+        "n_zero": 3
+      }
+    }
+  },
+  "paired": {
+    "f1": [
+      {
+        "a": "lstm_ae",
+        "b": "vae",
+        "n": 19,
+        "mean_diff": 0.018119879839912548,
+        "std_diff": 0.029037876811694452,
+        "se_diff": 0.00666174581879785,
+        "wins_a": 14,
+        "wins_b": 5
+      },
+      {
+        "a": "lstm_ae",
+        "b": "transformer_ae",
+        "n": 19,
+        "mean_diff": 0.021053359754850478,
+        "std_diff": 0.03900074393601644,
+        "se_diff": 0.008947384291579073,
+        "wins_a": 11,
+        "wins_b": 8
+      },
+      {
+        "a": "vae",
+        "b": "transformer_ae",
+        "n": 19,
+        "mean_diff": 0.0029334799149379285,
+        "std_diff": 0.04289872913860857,
+        "se_diff": 0.009841643427448336,
+        "wins_a": 10,
+        "wins_b": 9
+      }
+    ],
+    "roc_auc": [
+      {
+        "a": "lstm_ae",
+        "b": "vae",
+        "n": 19,
+        "mean_diff": -0.011994628198998979,
+        "std_diff": 0.0197337982751451,
+        "se_diff": 0.004527243813346039,
+        "wins_a": 8,
+        "wins_b": 11
+      },
+      {
+        "a": "lstm_ae",
+        "b": "transformer_ae",
+        "n": 19,
+        "mean_diff": -0.019683080729322636,
+        "std_diff": 0.032886089358422424,
+        "se_diff": 0.007544586324295352,
+        "wins_a": 6,
+        "wins_b": 13
+      },
+      {
+        "a": "vae",
+        "b": "transformer_ae",
+        "n": 19,
+        "mean_diff": -0.007688452530323657,
+        "std_diff": 0.03582683945121913,
+        "se_diff": 0.00821924066496423,
+        "wins_a": 8,
+        "wins_b": 11
+      }
+    ],
+    "pr_auc": [
+      {
+        "a": "lstm_ae",
+        "b": "vae",
+        "n": 19,
+        "mean_diff": 0.00035705319633481,
+        "std_diff": 0.011432982541453618,
+        "se_diff": 0.0026229060800769016,
+        "wins_a": 11,
+        "wins_b": 8
+      },
+      {
+        "a": "lstm_ae",
+        "b": "transformer_ae",
+        "n": 19,
+        "mean_diff": -0.009821868058669159,
+        "std_diff": 0.0313103528320904,
+        "se_diff": 0.007183087572720241,
+        "wins_a": 8,
+        "wins_b": 11
+      },
+      {
+        "a": "vae",
+        "b": "transformer_ae",
+        "n": 19,
+        "mean_diff": -0.01017892125500397,
+        "std_diff": 0.03268820530786755,
+        "se_diff": 0.007499188609616026,
+        "wins_a": 6,
+        "wins_b": 13
+      }
+    ]
+  },
+  "n_degenerate_seeds": 1
+}

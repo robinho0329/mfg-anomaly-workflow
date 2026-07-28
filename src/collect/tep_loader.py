@@ -152,11 +152,13 @@ def _interleave_fault_blocks(
     return df.iloc[idx].reset_index(drop=True)
 
 
-def load_raw_tep(raw_dir: Path = RAW_DIR) -> pd.DataFrame | None:
+def load_raw_tep(raw_dir: Path = RAW_DIR, seed: int = RANDOM_STATE) -> pd.DataFrame | None:
     """raw_dir 의 실제 TEP 데이터를 프로젝트 스키마 DataFrame으로 반환.
 
     반환 전 정상/결함 블록을 결정적으로 인터리브한다(위 함수 참조) —
     재생 시간축이 원본 파일의 블록 순서가 아니라 대표성 있는 혼합이 되도록.
+    seed를 바꾸면 블록 순서가 달라져 홀드아웃 결함모드 구성이 바뀐다
+    (시드 반복 평가 src/models/repeat_eval.py 가 이를 이용한다).
 
     Returns
     -------
@@ -184,7 +186,7 @@ def load_raw_tep(raw_dir: Path = RAW_DIR) -> pd.DataFrame | None:
     combined = pd.concat(frames, ignore_index=True)
     if not len(combined):
         return None
-    return _interleave_fault_blocks(combined)
+    return _interleave_fault_blocks(combined, seed=seed)
 
 
 if __name__ == "__main__":

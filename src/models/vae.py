@@ -65,7 +65,7 @@ class LSTMVae:
 
         from src.models.tf_seed import enable_determinism
 
-        enable_determinism(RANDOM_STATE)
+        enable_determinism()  # 활성 시드 사용
         Sampling = _build_sampling_layer()
 
         inp = layers.Input(shape=(self.seq_len, self.n_features))

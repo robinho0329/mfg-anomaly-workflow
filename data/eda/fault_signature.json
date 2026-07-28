@@ -1,0 +1,327 @@
+{
+  "top_n": 5,
+  "min_shift_sigma": 1.0,
+  "note": "정상 구간 대비 표준화 평균 이동량(σ). 설비 귀속은 미측정 — TEP 문헌 대조가 필요하며 본 산출물은 태그 수준까지만 주장한다.",
+  "signatures": {
+    "1": {
+      "n_rows": 48,
+      "max_abs_shift": 15.329504312875613,
+      "distinct": true,
+      "tags": [
+        {
+          "tag": "xmeas_16",
+          "shift_sigma": 15.33,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_07",
+          "shift_sigma": 11.98,
+          "direction": "+"
+        },
+        {
+          "tag": "xmv_03",
+          "shift_sigma": 11.87,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_13",
+          "shift_sigma": 11.24,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_31",
+          "shift_sigma": 10.49,
+          "direction": "+"
+        }
+      ]
+    },
+    "2": {
+      "n_rows": 48,
+      "max_abs_shift": 6.873371409641714,
+      "distinct": true,
+      "tags": [
+        {
+          "tag": "xmeas_10",
+          "shift_sigma": 6.87,
+          "direction": "+"
+        },
+        {
+          "tag": "xmv_06",
+          "shift_sigma": 6.65,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_30",
+          "shift_sigma": 5.98,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_24",
+          "shift_sigma": 4.78,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_16",
+          "shift_sigma": 3.42,
+          "direction": "+"
+        }
+      ]
+    },
+    "3": {
+      "n_rows": 48,
+      "max_abs_shift": 1.0393263576915983,
+      "distinct": true,
+      "tags": [
+        {
+          "tag": "xmeas_13",
+          "shift_sigma": -1.04,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_07",
+          "shift_sigma": -1.03,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_16",
+          "shift_sigma": -0.92,
+          "direction": "−"
+        },
+        {
+          "tag": "xmv_05",
+          "shift_sigma": -0.8,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_11",
+          "shift_sigma": 0.75,
+          "direction": "+"
+        }
+      ]
+    },
+    "4": {
+      "n_rows": 48,
+      "max_abs_shift": 7.059004009188893,
+      "distinct": true,
+      "tags": [
+        {
+          "tag": "xmv_10",
+          "shift_sigma": 7.06,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_16",
+          "shift_sigma": -1.3,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_31",
+          "shift_sigma": -1.26,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_07",
+          "shift_sigma": -1.23,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_13",
+          "shift_sigma": -1.21,
+          "direction": "−"
+        }
+      ]
+    },
+    "6": {
+      "n_rows": 48,
+      "max_abs_shift": 18.653134387990615,
+      "distinct": true,
+      "tags": [
+        {
+          "tag": "xmv_03",
+          "shift_sigma": 18.65,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_16",
+          "shift_sigma": 9.25,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_01",
+          "shift_sigma": -8.33,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_20",
+          "shift_sigma": -8.33,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_29",
+          "shift_sigma": -7.95,
+          "direction": "−"
+        }
+      ]
+    },
+    "7": {
+      "n_rows": 48,
+      "max_abs_shift": 10.84567849069013,
+      "distinct": true,
+      "tags": [
+        {
+          "tag": "xmv_04",
+          "shift_sigma": 10.85,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_08",
+          "shift_sigma": -6.23,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_16",
+          "shift_sigma": -6.18,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_07",
+          "shift_sigma": -5.62,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_13",
+          "shift_sigma": -5.37,
+          "direction": "−"
+        }
+      ]
+    },
+    "8": {
+      "n_rows": 48,
+      "max_abs_shift": 2.248974567398997,
+      "distinct": true,
+      "tags": [
+        {
+          "tag": "xmeas_01",
+          "shift_sigma": 2.25,
+          "direction": "+"
+        },
+        {
+          "tag": "xmv_03",
+          "shift_sigma": 2.22,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_16",
+          "shift_sigma": 2.04,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_31",
+          "shift_sigma": 1.92,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_07",
+          "shift_sigma": 1.92,
+          "direction": "+"
+        }
+      ]
+    },
+    "12": {
+      "n_rows": 48,
+      "max_abs_shift": 3.2077529817555646,
+      "distinct": true,
+      "tags": [
+        {
+          "tag": "xmeas_16",
+          "shift_sigma": 3.21,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_07",
+          "shift_sigma": 3.19,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_13",
+          "shift_sigma": 3.15,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_11",
+          "shift_sigma": -2.74,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_04",
+          "shift_sigma": 2.21,
+          "direction": "+"
+        }
+      ]
+    },
+    "14": {
+      "n_rows": 48,
+      "max_abs_shift": 0.6880466855064118,
+      "distinct": false,
+      "tags": [
+        {
+          "tag": "xmeas_37",
+          "shift_sigma": -0.69,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_40",
+          "shift_sigma": -0.48,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_24",
+          "shift_sigma": -0.39,
+          "direction": "−"
+        },
+        {
+          "tag": "xmv_09",
+          "shift_sigma": 0.38,
+          "direction": "+"
+        },
+        {
+          "tag": "xmeas_19",
+          "shift_sigma": 0.38,
+          "direction": "+"
+        }
+      ]
+    },
+    "18": {
+      "n_rows": 48,
+      "max_abs_shift": 0.7440351396641983,
+      "distinct": false,
+      "tags": [
+        {
+          "tag": "xmeas_19",
+          "shift_sigma": -0.74,
+          "direction": "−"
+        },
+        {
+          "tag": "xmv_09",
+          "shift_sigma": -0.72,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_18",
+          "shift_sigma": -0.58,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_41",
+          "shift_sigma": -0.45,
+          "direction": "−"
+        },
+        {
+          "tag": "xmeas_40",
+          "shift_sigma": 0.43,
+          "direction": "+"
+        }
+      ]
+    }
+  }
+}
