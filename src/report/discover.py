@@ -31,7 +31,7 @@ _PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
-from config.settings import DATA_DIR, EDA_DIR, MODELS_DIR, REPORTS_DIR  # noqa: E402
+from config.settings import DATA_DIR  # noqa: E402
 
 KST = timezone(timedelta(hours=9))
 MAX_CANDIDATES = 3            # 사규 §3-0 반려 기준 ③
@@ -182,15 +182,17 @@ def scan_todos(repo: Path, limit: int = 40) -> list[dict]:
 
 
 def weak_modes(repo: Path) -> list[dict]:
-    """반복 평가 형식을 가진 저장소에서만 — 완전 미탐·취약 결함모드."""
-    if repo != _PROJECT_ROOT:
-        return []
-    rep = _load_json(MODELS_DIR / "repeat_eval.json")
+    """반복 평가 산출물을 가진 저장소에서 — 완전 미탐·취약 결함모드.
+
+    경로를 저장소 기준으로 읽는다. 전역 상수(MODELS_DIR)를 쓰면 CI 러너처럼
+    다른 위치에 clone 한 저장소를 스캔할 때 자기 자신만 보게 된다.
+    """
+    rep = _load_json(repo / "data" / "models" / "repeat_eval.json")
     cov = rep.get("coverage") or {}
     if not cov:
         return []
     model = next(iter(cov))
-    sig = (_load_json(EDA_DIR / "fault_signature.json") or {}).get("signatures", {})
+    sig = (_load_json(repo / "data" / "eda" / "fault_signature.json") or {}).get("signatures", {})
     out = []
     for fid, c in sorted(cov.get(model, {}).items(), key=lambda kv: int(kv[0])):
         if c.get("n_zero", 0) == 0 and c.get("recall_mean", 1.0) >= WEAK_RECALL:
