@@ -86,10 +86,16 @@ def _load_json(path: Path) -> dict:
         return {}
 
 
-def find_repos() -> list[dict]:
-    """워크스페이스에서 origin 리모트를 가진 저장소를 모두 찾는다."""
+def find_repos(root: Path | None = None) -> list[dict]:
+    """지정 폴더(기본: 워크스페이스)에서 origin 리모트를 가진 저장소를 모두 찾는다.
+
+    CI 러너는 저장소들을 임시 폴더에 clone 하므로 root 를 바꿔 부른다.
+    """
+    root = root or WORKSPACE
     repos = []
-    for path in sorted(p for p in WORKSPACE.iterdir() if p.is_dir()):
+    if not root.exists():
+        return repos
+    for path in sorted(p for p in root.iterdir() if p.is_dir()):
         if not (path / ".git").exists():
             continue
         remote = _git(path, "remote", "get-url", "origin")
@@ -306,9 +312,10 @@ def candidates_for(repo: dict, use_remote: bool) -> dict:
     }
 
 
-def run(only: str | None = None, use_remote: bool = True) -> dict:
-    """전체 저장소 스캔 → data/discovery/candidates.json."""
-    repos = find_repos()
+def run(only: str | None = None, use_remote: bool = True,
+        root: Path | None = None, out_path: Path | None = None) -> dict:
+    """전체 저장소 스캔 → candidates.json."""
+    repos = find_repos(root)
     if only:
         repos = [r for r in repos if r["name"] == only]
     if not repos:
@@ -340,8 +347,8 @@ def run(only: str | None = None, use_remote: bool = True) -> dict:
         "source_report": (default["project"] or {}).get("name", "-"),
     }
 
-    DISCOVERY_DIR.mkdir(parents=True, exist_ok=True)
-    out = DISCOVERY_DIR / "candidates.json"
+    out = out_path or (DISCOVERY_DIR / "candidates.json")
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"[discover] 저장소 {len(repos)}개 스캔 · 후보가 있는 저장소 {len(projects)}개")
@@ -360,8 +367,12 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="보유 저장소 전체에서 과제 후보 발굴")
     ap.add_argument("--repo", default=None, help="특정 저장소만 스캔")
     ap.add_argument("--no-remote", action="store_true", help="gh 호출 생략(이슈·CI 미조회)")
+    ap.add_argument("--root", default=None, help="저장소들이 모인 폴더(기본: 워크스페이스)")
+    ap.add_argument("--out", default=None, help="산출 파일 경로")
     a = ap.parse_args()
-    run(only=a.repo, use_remote=not a.no_remote)
+    run(only=a.repo, use_remote=not a.no_remote,
+        root=Path(a.root) if a.root else None,
+        out_path=Path(a.out) if a.out else None)
 
 
 if __name__ == "__main__":
