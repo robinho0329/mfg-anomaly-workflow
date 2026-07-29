@@ -159,8 +159,36 @@ def scan_markdown(repo: Path) -> list[dict]:
     return out
 
 
+def _notebook_todos(path: Path, rel: str) -> list[dict]:
+    """노트북은 JSON이라 원문 줄 번호가 사람에게 무의미하고, 출력 셀의 base64
+    이미지에 우연히 TODO 문자열이 섞여 가짜 후보가 된다. 소스 셀만 본다."""
+    try:
+        nb = json.loads(path.read_text(encoding="utf-8", errors="ignore"))
+    except (json.JSONDecodeError, OSError):
+        return []
+    out = []
+    for idx, cell in enumerate(nb.get("cells", []), 1):
+        if cell.get("cell_type") not in ("code", "markdown"):
+            continue
+        src = "".join(cell.get("source", []))
+        for line in src.splitlines():
+            if TODO_MARK.search(line) and not _looks_like_blob(line):
+                out.append({"file": rel, "line_no": f"셀 {idx}", "quote": line.strip()[:140]})
+                break
+    return out
+
+
+def _looks_like_blob(line: str) -> bool:
+    """base64·해시 같은 긴 무의미 문자열인가. 근거로 인용할 수 없다."""
+    s = line.strip()
+    if len(s) > 200:
+        return True
+    longest = max((len(w) for w in s.split()), default=0)
+    return longest > 60
+
+
 def scan_todos(repo: Path, limit: int = 40) -> list[dict]:
-    """코드에 남은 TODO/FIXME. 주석이 아니어도 잡히지만 근거로는 충분하다."""
+    """코드에 남은 TODO/FIXME. 인용할 수 없는 줄(바이너리·base64)은 제외한다."""
     out = []
     for src in sorted(repo.rglob("*")):
         if len(out) >= limit:
@@ -169,13 +197,16 @@ def scan_todos(repo: Path, limit: int = 40) -> list[dict]:
             continue
         if any(part in SKIP_DIRS for part in src.parts):
             continue
+        rel = src.relative_to(repo).as_posix()
+        if src.suffix == ".ipynb":
+            out.extend(_notebook_todos(src, rel)[:1])   # 파일당 1건
+            continue
         try:
             lines = src.read_text(encoding="utf-8", errors="ignore").splitlines()
         except OSError:
             continue
-        rel = src.relative_to(repo).as_posix()
         for i, raw in enumerate(lines, 1):
-            if TODO_MARK.search(raw):
+            if TODO_MARK.search(raw) and not _looks_like_blob(raw):
                 out.append({"file": rel, "line_no": i, "quote": raw.strip()[:140]})
                 break          # 파일당 1건 — 같은 파일이 후보를 독식하지 않게
     return out
