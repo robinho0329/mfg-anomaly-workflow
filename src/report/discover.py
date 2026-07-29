@@ -241,6 +241,7 @@ def candidates_for(repo: dict, use_remote: bool) -> dict:
             "tags": tags, "source": "data/models/repeat_eval.json",
             "action": f"IDV {m['fault_id']}을 관리도·인터록·순회점검 중 무엇으로 덮을지 정하고, "
                       f"감시 태그({tags})의 관리 한계를 설계한다",
+            "blanks": ["오탐 1건 : 미탐 1건 비용비", "결정권자", "대상 태그의 조작 권한자"],
         })
 
     remote = remote_signals(name) if use_remote else {}
@@ -250,7 +251,7 @@ def candidates_for(repo: dict, use_remote: bool) -> dict:
             "note": f"근거: 열린 이슈 \"{iss['title'][:70]}\"",
             "question": "이 이슈를 닫으려면 무엇을 바꿔야 하는가",
             "tags": "GitHub 이슈", "source": f"{repo['remote']}/issues/{iss['number']}",
-            "action": f"이슈 #{iss['number']} 를 해결하고 닫는다",
+            "action": f"이슈 #{iss['number']} 를 해결하고 닫는다", "blanks": [],
         })
 
     if repo.get("last_commit") and len(mode_a) < MAX_CANDIDATES:
@@ -266,6 +267,7 @@ def candidates_for(repo: dict, use_remote: bool) -> dict:
                 "question": "이 저장소를 계속 갈 것인가, 아카이브할 것인가",
                 "tags": "저장소 상태", "source": f"git log -1 ({repo['commit']})",
                 "action": "재개한다면 다음 과제 1개를 정하고, 아니면 README에 중단 사유를 남긴다",
+                "blanks": ["재개 / 아카이브 중 무엇인가"],
             })
 
     # 모드 B — 이미 적어둔 이월 항목(문서 미측정/이관 · TODO · 실패 CI)
@@ -282,7 +284,7 @@ def candidates_for(repo: dict, use_remote: bool) -> dict:
             "question": "이 항목을 처리하면 어느 수치가 얼마나 바뀌는가",
             "tags": "이월 대장", "source": f"{c['file']}:{c['line_no']}",
             "action": f"{c['file']} {c['line_no']}행이 '{verb} 필요'로 남긴 항목을 처리하고, "
-                      f"처리 후 그 문장을 문서에서 지울 수 있는 상태로 만든다",
+                      f"처리 후 그 문장을 문서에서 지울 수 있는 상태로 만든다", "blanks": [],
         })
         if len(mode_b) >= MAX_CANDIDATES:
             break
@@ -294,7 +296,7 @@ def candidates_for(repo: dict, use_remote: bool) -> dict:
             "note": f"근거: 최근 실행 실패 — \"{(fr.get('displayTitle') or '')[:60]}\"",
             "question": "무엇 때문에 실패했고 무엇을 고쳐야 통과하는가",
             "tags": "CI", "source": f"{repo['remote']}/actions",
-            "action": "실패 로그를 읽고 원인을 고친 뒤 재실행해 통과를 확인한다",
+            "action": "실패 로그를 읽고 원인을 고친 뒤 재실행해 통과를 확인한다", "blanks": [],
         })
 
     for c in scan_todos(path)[:MAX_CANDIDATES - len(mode_b)]:
@@ -303,7 +305,7 @@ def candidates_for(repo: dict, use_remote: bool) -> dict:
             "note": f'근거: "{c["quote"][:80]}"',
             "question": "이 TODO를 처리하면 무엇이 좋아지는가",
             "tags": "코드 주석", "source": f"{c['file']}:{c['line_no']}",
-            "action": f"{c['file']} {c['line_no']}행의 TODO를 처리하거나, 불필요하면 근거와 함께 지운다",
+            "action": f"{c['file']} {c['line_no']}행의 TODO를 처리하거나, 불필요하면 근거와 함께 지운다", "blanks": [],
         })
 
     return {
@@ -340,9 +342,6 @@ def run(only: str | None = None, use_remote: bool = True,
         "note": ("보유 저장소 전체를 스캔해 뽑은 후보다. 질문을 발명하지 않으며, "
                  "근거 문장과 파일 경로가 없는 후보는 만들지 않는다. "
                  "비용비·결정권자 등 사람이 정할 값은 비워 둔다."),
-        "blanks_for_owner": ["오탐 1건 : 미탐 1건 비용비",
-                             "이 분석으로 무엇을 결정하는가 + 결정권자",
-                             "대상 태그의 조작 권한자"],
         "projects": projects,
         # 하위호환 — 오피스가 아직 단일 프로젝트 키를 읽는다
         "project": default["project"], "A": default["A"], "B": default["B"],
