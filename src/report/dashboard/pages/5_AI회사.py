@@ -32,8 +32,15 @@ for _anc in _Path(__file__).resolve().parents:
 from _lib import dash_header, inject_css, render_footer, render_sidebar  # noqa: E402
 
 OFFICE_RAW = "https://raw.githubusercontent.com/robinho0329/ai-company-office/main"
-LOCAL_OFFICE = _Path(__file__).resolve().parents[3].parent / "ai-company-office"
 FETCH_TIMEOUT = 15
+
+# 레포 루트는 config/settings.py 를 가진 조상으로 찾는다.
+# parents[N] 을 세면 페이지 위치가 바뀔 때 조용히 어긋난다(실제로 한 칸 어긋나 있었다).
+REPO_ROOT = next(
+    (a for a in _Path(__file__).resolve().parents if (a / "config" / "settings.py").exists()),
+    _Path(__file__).resolve().parents[3],
+)
+LOCAL_OFFICE = REPO_ROOT.parent / "ai-company-office"
 
 
 def _fetch(url: str) -> str | None:
@@ -59,7 +66,7 @@ def load_office() -> tuple[str | None, str]:
 def load_candidates() -> tuple[dict | None, str]:
     """과제 후보 — 로컬 산출물 우선, 없으면 깃허브(Actions 가 매일 커밋). (내용, 출처)."""
     for path in (LOCAL_OFFICE / "candidates.json",
-                 _Path(__file__).resolve().parents[3] / "data" / "discovery" / "candidates.json"):
+                 REPO_ROOT / "data" / "discovery" / "candidates.json"):
         if path.exists():
             try:
                 return json.loads(path.read_text(encoding="utf-8")), "로컬"
@@ -88,6 +95,12 @@ st.info(
     "실행 중인 작업의 상태가 아닙니다.",
     icon="ℹ️",
 )
+
+# 화면·후보는 30분 캐시된다. 원본을 고친 직후에는 캐시가 옛것을 돌려주므로 수동 갱신구를 둔다.
+if st.button("🔄 화면·후보 새로고침", help="오피스 HTML과 후보 파일 캐시를 비우고 다시 읽습니다"):
+    load_office.clear()
+    load_candidates.clear()
+    st.rerun()
 
 office_html, office_src = load_office()
 cands, cand_src = load_candidates()
