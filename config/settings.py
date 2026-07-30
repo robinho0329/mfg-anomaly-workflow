@@ -78,6 +78,9 @@ AE_DROPOUT = 0.1             # 과적합 억제용 드롭아웃
 ANOMALY_QUANTILE = 0.995     # 순수 정상 마할라노비스 점수 분위수 → 임계값
 THRESHOLD_MARGIN = 1.10      # 분위 임계값에 곱하는 안전 여유 배수(노이즈 마진)
 SCORE_SMOOTH_WINDOW = 5      # 행 점수 평활(rolling median) 윈도우(과탐 억제)
+# 평활 방향 — True(중심)는 각 시점이 미래 스텝을 참조하므로 온라인 운영에서 재현 불가.
+# 기본을 후행(False)으로 둔다: 지금 시점까지의 값만 쓴다.
+SCORE_SMOOTH_CENTER = False
 
 # 신규 모델 하이퍼파라미터
 VAE_BETA = 0.5               # VAE KL 가중치(β-VAE)

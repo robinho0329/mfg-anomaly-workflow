@@ -56,6 +56,7 @@ def fit_and_score(
     quantile: float = ANOMALY_QUANTILE,
     margin: float = THRESHOLD_MARGIN,
     smooth_window: int = SCORE_SMOOTH_WINDOW,
+    smooth_center: bool | None = None,
     save_scaler: bool = False,
     train_frac: float | None = TRAIN_RATIO,
 ) -> pd.DataFrame:
@@ -118,7 +119,8 @@ def fit_and_score(
     raw = scorer.score(err_all)
 
     # 5) 평활 + 임계값(학습구간 순수 정상 기준) + 플래그
-    flags = score_to_flags(raw, pure_normal & in_train, quantile, margin, smooth_window)
+    flags = score_to_flags(raw, pure_normal & in_train, quantile, margin,
+                           smooth_window, smooth_center)
 
     out = df.iloc[SEQ_LEN - 1:].copy()
     out["anomaly_score"] = flags["score"]

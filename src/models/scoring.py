@@ -16,6 +16,7 @@ import pandas as pd
 
 from config.settings import (
     ANOMALY_QUANTILE,
+    SCORE_SMOOTH_CENTER,
     SCORE_SMOOTH_WINDOW,
     SEQ_LEN,
     THRESHOLD_MARGIN,
@@ -72,12 +73,20 @@ class MahalanobisScorer:
         return self.estimator_.mahalanobis(err - self.mean_)
 
 
-def smooth_scores(scores: np.ndarray, window: int = SCORE_SMOOTH_WINDOW) -> np.ndarray:
-    """행 점수 시계열을 rolling median으로 평활(단발 스파이크 오탐 억제)."""
+def smooth_scores(scores: np.ndarray, window: int = SCORE_SMOOTH_WINDOW,
+                  center: bool | None = None) -> np.ndarray:
+    """행 점수 시계열을 rolling median으로 평활(단발 스파이크 오탐 억제).
+
+    center=True 는 각 시점이 뒤 window//2 스텝을 참조한다. 오프라인 평가에서는
+    성능이 좋게 나오지만 온라인 운영에서는 미래를 못 보므로 재현되지 않는다.
+    기본은 후행(center=False) — 지금까지의 값만 쓴다.
+    """
     if window <= 1 or len(scores) < window:
         return np.asarray(scores, dtype=float)
+    if center is None:
+        center = SCORE_SMOOTH_CENTER
     s = pd.Series(scores, dtype=float)
-    return s.rolling(window, center=True, min_periods=1).median().to_numpy()
+    return s.rolling(window, center=center, min_periods=1).median().to_numpy()
 
 
 def calibrate_threshold(
@@ -107,6 +116,7 @@ def score_to_flags(
     quantile: float = ANOMALY_QUANTILE,
     margin: float = THRESHOLD_MARGIN,
     smooth_window: int = SCORE_SMOOTH_WINDOW,
+    smooth_center: bool | None = None,   # None = 호출 시점의 설정을 따른다
 ) -> dict:
     """원시 시퀀스 점수 → (평활 점수, 임계값, 이상 플래그) 일괄 산출.
 
@@ -117,7 +127,10 @@ def score_to_flags(
     Returns:
         dict: score(평활), threshold(float), is_anomaly(0/1 배열)
     """
-    smoothed = smooth_scores(raw_scores, smooth_window)
+    # 기본 인자는 정의 시점에 고정된다. 설정을 바꿔도 반영되지 않으므로
+    # None 일 때 여기서 전역을 다시 읽는다(측정·실험이 실제로 반영되게).
+    center = SCORE_SMOOTH_CENTER if smooth_center is None else smooth_center
+    smoothed = smooth_scores(raw_scores, smooth_window, center)
     thr = calibrate_threshold(smoothed, calib_mask, quantile, margin)
     is_anom = (smoothed > thr).astype(int)
     return {"score": smoothed, "threshold": thr, "is_anomaly": is_anom}
