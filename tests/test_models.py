@@ -80,12 +80,35 @@ def test_calibrate_threshold_fallback():
 
 
 def test_score_to_flags_separation():
-    """정상/결함이 분리될 때 결함만 플래그된다."""
+    """정상/결함이 분리될 때 결함만 플래그된다.
+
+    후행 평활(기본)은 각 시점이 과거만 보므로 결함 시작 직후 window//2 스텝은
+    아직 정상값이 중앙값을 지배해 탐지되지 않는다. 이 지연은 온라인 운영에서
+    피할 수 없는 대가이며, 미래를 참조하면(center=True) 사라진다.
+    """
+    win = 3
     raw = np.concatenate([np.full(40, 1.0), np.full(10, 50.0)])
     mask = np.array([True] * 40 + [False] * 10)
-    out = score_to_flags(raw, mask, quantile=0.99, margin=1.1, smooth_window=3)
-    assert out["is_anomaly"][:40].sum() == 0      # 정상 구간 오탐 없음
-    assert out["is_anomaly"][40:].sum() == 10     # 결함 전부 탐지
+
+    out = score_to_flags(raw, mask, quantile=0.99, margin=1.1, smooth_window=win)
+    assert out["is_anomaly"][:40].sum() == 0                 # 정상 구간 오탐 없음
+    lag = win // 2
+    assert out["is_anomaly"][40:40 + lag].sum() == 0         # 시작 직후 지연
+    assert out["is_anomaly"][40 + lag:].sum() == 10 - lag    # 그 뒤는 전부 탐지
+
+
+def test_smoothing_center_removes_detection_lag():
+    """미래 참조(center=True)는 그 지연을 없앤다 — 그래서 온라인에서 재현되지 않는다."""
+    raw = np.concatenate([np.full(40, 1.0), np.full(10, 50.0)])
+    mask = np.array([True] * 40 + [False] * 10)
+    centered = score_to_flags(raw, mask, quantile=0.99, margin=1.1,
+                              smooth_window=3, smooth_center=True)
+    trailing = score_to_flags(raw, mask, quantile=0.99, margin=1.1,
+                              smooth_window=3, smooth_center=False)
+    assert centered["is_anomaly"][40:].sum() == 10            # 지연 없음
+    assert trailing["is_anomaly"][40:].sum() < 10             # 후행은 늦다
+    # 인자가 실제로 전달되는지 — 기본 인자 고정 때문에 전역만 바꾸면 반영되지 않는다
+    assert not np.array_equal(centered["is_anomaly"], trailing["is_anomaly"])
 
 
 # ── 마할라노비스 스코어러 ─────────────────────────────────
