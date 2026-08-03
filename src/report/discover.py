@@ -56,6 +56,14 @@ RULE_LIKE = re.compile(
     r"(?:이라고|라고|으로|로)\s*(?:쓴|적|표시|기록|남긴|보고)|"  # "~라고 쓴다"
     r"(?:쓴다|적는다|표시한다|기록한다|남긴다)"
 )
+# 절대경로를 '찾아내는' 코드는 그 경로 패턴을 문자열로 갖고 있다. 탐지기를 위반으로
+# 세면 도구를 고치라고 시키게 된다 — 이월 문장에서 RULE_LIKE 로 거른 것과 같은 경우다.
+PATTERN_LIKE = re.compile(
+    r"re\.(?:compile|search|match|sub|findall|split)"   # 정규식 호출
+    r"|\[\^"                                            # 문자 클래스 부정
+    r"|\\[wsdWSDb](?![a-zA-Z])"                         # \w \s \d 등
+    r"|\.\*|\.\+"                                       # 와일드카드
+)
 TODO_MARK = re.compile(r"\b(TODO|FIXME|XXX|HACK)\b")
 CODE_EXT = {".py", ".js", ".ts", ".ipynb", ".sql", ".sh", ".yml", ".yaml"}
 SKIP_DIRS = {".git", ".venv", "node_modules", "__pycache__", ".pytest_cache", "data"}
@@ -328,7 +336,9 @@ def _operating_model(repo: Path, cov: dict) -> str | None:
 
 
 ABS_PATH = re.compile(r"[A-Za-z]:[\\/]{1,2}Users[\\/]{1,2}")
-SRC_EXT = {".py", ".ipynb"}
+# 파이썬만 보면 다른 언어의 절대경로가 영원히 안 보인다. 실제로 EPL 의 pptx 생성
+# 스크립트 2개가 .js 라는 이유만으로 스캔 밖에 있었다.
+SRC_EXT = {".py", ".ipynb", ".js", ".ts", ".jsx", ".tsx", ".sh"}
 
 
 def _has_dep_file(repo: Path, names: tuple[str, ...]) -> bool:
@@ -386,7 +396,12 @@ def scan_health(repo: Path) -> list[dict]:
         except OSError:
             continue
         for i, line in enumerate(text.splitlines(), 1):
-            if ABS_PATH.search(line) and not _looks_like_blob(line):
+            # 주석 줄은 실행되지 않는다. 이 후보가 묻는 것은 "클론하면 어디서
+            # 멈추는가"이고, 주석은 아무것도 멈추게 하지 못한다.
+            if line.lstrip().startswith(("#", "//")):
+                continue
+            if (ABS_PATH.search(line) and not _looks_like_blob(line)
+                    and not PATTERN_LIKE.search(line)):
                 hits.append({"file": src.relative_to(repo).as_posix(),
                              "line_no": i, "quote": line.strip()[:120]})
                 break
