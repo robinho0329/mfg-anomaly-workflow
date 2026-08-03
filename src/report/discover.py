@@ -305,6 +305,23 @@ ABS_PATH = re.compile(r"[A-Za-z]:[\\/]{1,2}Users[\\/]{1,2}")
 SRC_EXT = {".py", ".ipynb"}
 
 
+def repo_langs(repo: Path) -> set[str]:
+    """저장소가 실제로 담고 있는 언어. 없는 언어의 관행을 요구하지 않기 위해 쓴다."""
+    langs = set()
+    for src in repo.rglob("*"):
+        if not src.is_file() or any(p in SKIP_DIRS for p in src.parts):
+            continue
+        if src.suffix == ".py":
+            langs.add("py")
+        elif src.suffix == ".ipynb":
+            langs.add("py")
+        elif src.suffix in (".js", ".ts", ".jsx", ".tsx"):
+            langs.add("js")
+        if {"py", "js"} <= langs:
+            break
+    return langs
+
+
 def scan_health(repo: Path) -> list[dict]:
     """파일의 존재·부재로 판정하는 근거. 문서 어휘에 의존하지 않는다.
 
@@ -312,6 +329,7 @@ def scan_health(repo: Path) -> list[dict]:
     없는 것을 "없다"고만 적고, 왜 필요한지는 대표가 판단한다.
     """
     found = []
+    langs = repo_langs(repo)
 
     # ① 절대경로 하드코딩 — 남이 클론하면 그 줄에서 멈춘다
     hits = []
@@ -342,8 +360,9 @@ def scan_health(repo: Path) -> list[dict]:
             "blanks": [],
         })
 
-    # ② 회귀 테스트 부재 — 고쳐도 안 깨졌는지 확인할 방법이 없다
-    if not any((repo / d).is_dir() for d in ("tests", "test")):
+    # ② 회귀 테스트 부재 — 고쳐도 안 깨졌는지 확인할 방법이 없다.
+    #    실행 코드가 없는 저장소(문서·정적 페이지)에는 해당하지 않는다.
+    if langs and not any((repo / d).is_dir() for d in ("tests", "test")):
         found.append({
             "key": "no_tests",
             "label": "회귀 테스트 도입",
@@ -354,8 +373,9 @@ def scan_health(repo: Path) -> list[dict]:
             "blanks": ["먼저 고정할 함수 3개"],
         })
 
-    # ③ CI 부재 — 깨진 상태로 푸시돼도 아무도 모른다
-    if not (repo / ".github" / "workflows").is_dir():
+    # ③ CI 부재 — 깨진 상태로 푸시돼도 아무도 모른다.
+    #    검증할 코드가 없으면 CI 도 확인할 것이 없다.
+    if langs and not (repo / ".github" / "workflows").is_dir():
         found.append({
             "key": "no_ci",
             "label": "CI 워크플로우 추가",
@@ -366,15 +386,23 @@ def scan_health(repo: Path) -> list[dict]:
             "blanks": [],
         })
 
-    # ④ 의존성 명세 부재 — 재현 불가
-    if not any((repo / f).exists() for f in
-               ("requirements.txt", "pyproject.toml", "environment.yml", "Pipfile")):
+    # ④ 의존성 명세 부재 — 재현 불가. 언어별로 파일 이름이 다르고,
+    #    해당 언어가 없으면 요구 자체가 성립하지 않는다.
+    dep_files = {
+        "py": ("requirements.txt", "pyproject.toml", "environment.yml", "Pipfile"),
+        "js": ("package.json",),
+    }
+    missing_dep = [
+        names[0] for lang, names in dep_files.items()
+        if lang in langs and not any((repo / f).exists() for f in names)
+    ]
+    if missing_dep:
         found.append({
             "key": "no_deps",
             "label": "의존성 명세 작성",
-            "note": "근거: requirements.txt·pyproject.toml 모두 없음 — 환경을 재현할 수 없다",
+            "note": f"근거: {' · '.join(missing_dep)} 없음 — 환경을 재현할 수 없다",
             "question": "이 저장소를 돌리려면 무엇이 필요한가",
-            "source": "requirements.txt (없음)",
+            "source": f"{missing_dep[0]} (없음)",
             "action": "실제 임포트를 근거로 의존성을 고정 버전으로 적는다",
             "blanks": [],
         })
