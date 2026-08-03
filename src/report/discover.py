@@ -37,6 +37,10 @@ KST = timezone(timedelta(hours=9))
 MAX_CANDIDATES = 3            # 사규 §3-0 반려 기준 ③
 WEAK_RECALL = 0.8
 STALE_DAYS = 30               # 이 기간 커밋이 없으면 '멈춘 저장소'로 본다
+# 이월 문장은 적힌 시점의 상태를 말한다. 문서가 오래 방치된 사이 그 항목이
+# 해결됐을 수 있고, 그걸 확인하지 않은 채 올리면 이미 끝난 일을 오늘 할 일로
+# 내놓게 된다. 문서가 이 기간보다 오래 안 고쳐졌으면 현재 상태의 근거로 쓰지 않는다.
+CARRYOVER_FRESH_DAYS = 60
 # 대상에서 빼는 저장소. 대표가 "디벨롭 한계"로 판단해 제외한 것 —
 # 코드가 임의로 정한 게 아니므로 여기 적어 근거를 남긴다.
 EXCLUDE_REPOS = {"mfg-anomaly-workflow"}
@@ -129,9 +133,11 @@ def carryover_subject(quote: str) -> str:
     topic = re.split(r"(?:은|는)\s+", subject, maxsplit=1)[0].strip()
     if len(topic) >= 4:
         subject = topic
-    # 부정어가 주어 끝에 걸리면 라벨에서 잘려 뜻이 뒤집힌다.
-    # "…전부 미실행" 의 주어를 "…전부" 로 자르면 실행된 것처럼 읽힌다 — 만들지 않는다.
-    if re.search(r"(전부|모두|아직|여전히)$", subject) or subject.endswith(("미", "불", "안", "못")):
+    # 부정어에 붙어 있던 부사가 주어 끝에 남으면 라벨에서 뜻이 뒤집힌다.
+    # "…4일 연속 미실행" 의 주어를 "…4일 연속" 으로 자르면 "4일 연속 실행" 이 되어
+    # 사실과 정반대가 된다. 이런 부사는 부정을 수식하던 말이므로 주어로 쓰지 않는다.
+    if (re.search(r"(전부|모두|아직|여전히|연속|계속|전혀|일절|아예|완전)$", subject)
+            or subject.endswith(("미", "불", "안", "못"))):
         return ""
     # 조각난 주어(따옴표 잔해·조사만 남은 것)는 버린다 — 라벨이 뜻을 잃는다
     return subject[:34] if len(subject) >= 4 else ""
@@ -157,9 +163,26 @@ def carryover_verb(quote: str) -> str:
     return "처리"
 
 
+def doc_age_days(repo: Path, rel: str) -> int | None:
+    """그 문서가 마지막으로 고쳐진 뒤 흐른 날수. 모르면 None.
+
+    이월 문장이 지금도 유효한지는 문서만 봐서는 알 수 없다. 최소한 '언제 적힌
+    말인지'는 붙여야 오래된 기록을 오늘의 사실처럼 읽지 않는다.
+    """
+    iso = _git(repo, "log", "-1", "--format=%cI", "--", rel)
+    if not iso:
+        return None
+    try:
+        when = datetime.fromisoformat(iso.strip())
+    except ValueError:
+        return None
+    return (datetime.now(when.tzinfo) - when).days
+
+
 def scan_markdown(repo: Path) -> list[dict]:
     """저장소의 md 문서에서 이월 문장을 인용으로 수집."""
     out = []
+    age_cache: dict[str, int | None] = {}
     for md in sorted(repo.rglob("*.md")):
         if any(part in SKIP_DIRS for part in md.parts):
             continue
@@ -180,7 +203,10 @@ def scan_markdown(repo: Path) -> list[dict]:
                 continue
             if RULE_LIKE.search(line):         # "'미측정'이라고 쓴다" 류 제외
                 continue
-            out.append({"file": rel, "line_no": i, "quote": line[:160]})
+            if rel not in age_cache:
+                age_cache[rel] = doc_age_days(repo, rel)
+            out.append({"file": rel, "line_no": i, "quote": line[:160],
+                        "age_days": age_cache[rel]})
     return out
 
 
@@ -305,6 +331,21 @@ ABS_PATH = re.compile(r"[A-Za-z]:[\\/]{1,2}Users[\\/]{1,2}")
 SRC_EXT = {".py", ".ipynb"}
 
 
+def _has_dep_file(repo: Path, names: tuple[str, ...]) -> bool:
+    """의존성 매니페스트가 있는지. 루트만 보지 않는다.
+
+    코드가 하위 디렉토리 한 곳에만 있으면 매니페스트도 그 옆에 두는 것이 맞다.
+    루트만 확인하면 제대로 놓인 파일을 '없음'으로 보고하게 된다.
+    """
+    for n in names:
+        if (repo / n).exists():
+            return True
+        for hit in repo.rglob(n):
+            if not any(p in SKIP_DIRS for p in hit.parts):
+                return True
+    return False
+
+
 def repo_langs(repo: Path) -> set[str]:
     """저장소가 실제로 담고 있는 언어. 없는 언어의 관행을 요구하지 않기 위해 쓴다."""
     langs = set()
@@ -394,7 +435,7 @@ def scan_health(repo: Path) -> list[dict]:
     }
     missing_dep = [
         names[0] for lang, names in dep_files.items()
-        if lang in langs and not any((repo / f).exists() for f in names)
+        if lang in langs and not _has_dep_file(repo, names)
     ]
     if missing_dep:
         found.append({
@@ -460,7 +501,28 @@ def remote_signals(remote: str) -> dict:
         failed = [r for r in runs if r.get("conclusion") == "failure"]
         if failed:
             sig["failed_run"] = failed[0]
+    # 실패한 실행만 보면 '아예 안 도는' 워크플로를 놓친다. 비활성화되면 실행 자체가
+    # 없어서 run list 에 아무것도 안 남고, 조용히 멈춘 상태가 관측되지 않는다.
+    # GitHub 는 저장소 활동이 없으면 예약 워크플로를 자동으로 끈다.
+    wfs = _gh_json("api", f"repos/{slug}/actions/workflows")
+    if isinstance(wfs, dict):
+        # 수동으로 끈 것(disabled_manually)은 사람이 내린 결정이다. 그걸 후보로
+        # 올리면 이미 답한 질문을 다시 묻는 셈이다(사규 §3-0). 아무도 결정하지
+        # 않았는데 꺼진 것만 관측 대상으로 삼는다.
+        sig["workflows_disabled"] = [
+            {"name": w.get("name", "?"), "path": w.get("path", "?"), "state": w.get("state", "")}
+            for w in wfs.get("workflows", [])
+            if str(w.get("state", "")) in ("disabled_inactivity", "disabled_fork")
+        ]
     return sig
+
+
+# 워크플로가 꺼진 이유. 상태값을 그대로 노출하면 왜 꺼졌는지 읽히지 않는다.
+DISABLED_WHY = {
+    "disabled_inactivity": "저장소 활동이 없어 GitHub 가 자동으로 껐다",
+    "disabled_manually": "수동으로 꺼둔 상태다",
+    "disabled_fork": "포크 저장소라 꺼져 있다",
+}
 
 
 # ── 후보 조립 ─────────────────────────────────────────────
@@ -523,16 +585,36 @@ def candidates_for(repo: dict, use_remote: bool) -> dict:
             })
 
     # 모드 B — 이미 적어둔 이월 항목(문서 미측정/이관 · TODO · 실패 CI)
+    # 꺼진 워크플로를 먼저 올린다. 자동화가 멈춘 것은 지금 깨져 있는 상태이고,
+    # 문서에 적힌 이월보다 확실한 관측이다.
+    for w in (remote.get("workflows_disabled") or [])[:MAX_CANDIDATES]:
+        why = DISABLED_WHY.get(w["state"], f"상태 {w['state']}")
+        mode_b.append({
+            "label": f"{w['name']} 워크플로 재가동",
+            "note": f"근거: 상태 {w['state']} — {why}. 예약 실행이 돌지 않는다",
+            "question": "이 자동화를 다시 켤 것인가, 접을 것인가",
+            "tags": "CI", "source": f"{repo['remote']}/actions ({w['path']})",
+            "action": "워크플로를 다시 켜고 1회 수동 실행으로 통과를 확인한다. "
+                      "다시 꺼지지 않게 할 방법도 함께 정한다",
+            "blanks": ["재가동 / 폐기 중 무엇인가"],
+        })
+
     seen = set()
     for c in scan_markdown(path):
         subject = carryover_subject(c["quote"])
         if not subject or subject in seen:
             continue
+        age = c.get("age_days")
+        # 오래 방치된 문서는 그 사이 항목이 해결됐을 수 있다. 확인하지 않은 채
+        # 올리면 이미 끝난 일을 오늘 할 일로 내놓게 된다 — 근거로 쓰지 않는다.
+        if age is not None and age > CARRYOVER_FRESH_DAYS:
+            continue
         seen.add(subject)
         verb = carryover_verb(c["quote"])
+        when = f"{age}일 전 기록" if age is not None else "기록 시점 불명"
         mode_b.append({
             "label": f"{subject} {verb}",
-            "note": f'근거: "{c["quote"][:90]}…"',
+            "note": f'근거({when}): "{c["quote"][:90]}…"',
             "question": "이 항목을 처리하면 어느 수치가 얼마나 바뀌는가",
             "tags": "이월 대장", "source": f"{c['file']}:{c['line_no']}",
             # 원문에 없는 문자열을 따옴표로 인용하지 않는다(절대규칙 ③).
